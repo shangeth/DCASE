@@ -98,7 +98,7 @@ for epoch in range(epochs):
         val_accuracies.append(val_accuracy)
     t2 = time.time()
     t = t2-t1
-    model.save_state_dict('trained_model.pt')
+    torch.save(model.state_dict(), 'trained_model.pt')
     print(f'\rEpoch : {epoch+1:02}\tLoss : {epoch_loss:.4f}\tAccuracy : {epoch_accuracy:.4f}\tVal Loss : {val_loss:.4f}\tVal Accuracy : {val_accuracy:.4f}\tTime : {t:.2f} s')
 
 writer.close()
