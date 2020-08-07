@@ -34,7 +34,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=5e-4)
 
 #---------------------------------
 
-writer = SummaryWriter('logging')
+writer = SummaryWriter('logging/runs/')
 # no of epochs
 epochs = 20
 
@@ -101,7 +101,7 @@ for epoch in range(epochs):
         val_accuracies.append(val_accuracy)
     t2 = time.time()
     t = t2-t1
-    torch.save(model.state_dict(), 'trained_model.pt')
+    torch.save(model.state_dict(), 'logging/trained_model.pt')
     print(f'\rEpoch : {epoch+1:02}\tLoss : {epoch_loss:.4f}\tAccuracy : {epoch_accuracy:.4f}\tVal Loss : {val_loss:.4f}\tVal Accuracy : {val_accuracy:.4f}\tTime : {t:.2f} s')
 
 writer.close()
@@ -122,5 +122,5 @@ plt.ylabel('Accuracy')
 plt.plot(train_accuracies[:9], label='Accuracy')
 plt.plot(val_accuracies[:9], label='Val Accuracy')
 plt.legend()
-plt.savefig('training_curve.png')
+plt.savefig('logging/training_curve.png')
 plt.show()
