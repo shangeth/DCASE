@@ -57,7 +57,7 @@ class RawWaveDataset(Dataset):
         waveform, sample_rate = torchaudio.load(file_name)
         if self.undersample:
             waveform = torchaudio.transforms.Resample(sample_rate, self.sampling_rate)(waveform)
-        waveform = waveform[:, :10*self.sampling_rate]
+        waveform = waveform[:, :self.ns*self.fs]
         return waveform, self.labels_list.index(label), self.device_list.index(device)
 
     def print_stats(self):
