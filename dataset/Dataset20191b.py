@@ -16,7 +16,7 @@ class RawWaveDataset(Dataset):
         self.device_list = sorted(list(self.device_counter.keys()))
         self.undersample = undersample
         self.sampling_rate = sampling_rate
-        self.class_num = len(labels_list)
+        self.class_num = len(self.labels_list)
         
     def __len__(self):
         return len(self.wave_files)
