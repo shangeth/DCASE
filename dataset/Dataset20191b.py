@@ -17,6 +17,8 @@ class RawWaveDataset(Dataset):
         self.undersample = undersample
         self.sampling_rate = sampling_rate
         self.class_num = len(self.labels_list)
+        self.fs = 44100
+        self.ns = 10
         
     def __len__(self):
         return len(self.wav_files)
