@@ -7,7 +7,7 @@ import time
 from tqdm import tqdm
 from torch.utils.tensorboard import SummaryWriter
 import matplotlib.pyplot as plt
-
+import datetime
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
@@ -34,7 +34,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=5e-4)
 
 #---------------------------------
 
-writer = SummaryWriter('logging/runs/')
+writer = SummaryWriter(f'logging/runs/{datetime.now().strftime("%m/%d/%Y-%H:%M:%S")}')
 # no of epochs
 epochs = 20
 
