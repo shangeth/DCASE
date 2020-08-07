@@ -34,7 +34,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=5e-4)
 
 #---------------------------------
 
-writer = SummaryWriter()
+writer = SummaryWriter('logging')
 # no of epochs
 epochs = 20
 
