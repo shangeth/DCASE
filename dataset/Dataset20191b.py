@@ -49,7 +49,7 @@ class RawWaveDataset(Dataset):
         if torch.is_tensor(idx):
             idx = idx.tolist()
 
-        file_name, label, device = self.wave_files[idx]
+        file_name, label, device = self.wav_files[idx]
         waveform, sample_rate = torchaudio.load(file_name)
         waveform = torchaudio.transforms.Resample(sample_rate, self.sampling_rate)(waveform.view(1,-1))
         waveform = waveform[:, :10*self.sampling_rate]
