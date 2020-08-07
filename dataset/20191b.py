@@ -4,14 +4,16 @@ from torch.utils.data import Dataset
 import os
 from fnmatch import fnmatch
 import torch
+from collections import Counter
 
 class RawWaveDataset(Dataset):
-    def __init__(self, root_dir, labels_list, device_list, test=False, sampling_rate=16000):
+    def __init__(self, root_dir, test=False, sampling_rate=16000):
         self.root_dir = root_dir
         self.test = test
-        self.wave_files = self.get_wav_files(self.root_dir)
-        self.labels_list = labels_list 
-        self.device_list = device_list
+        self.wav_files, self.label_counter, self.device_counter, self.city_counter = self.get_wav_files(self.root_dir)
+
+        self.labels_list =sorted(list(self.label_counter.keys()))
+        self.device_list = sorted(list(self.device_counter.keys()))
         self.sampling_rate = sampling_rate
         
     def __len__(self):
@@ -19,6 +21,9 @@ class RawWaveDataset(Dataset):
 
     def get_wav_files(self, root, pattern = "*.wav"):
         wav_files = []
+        labels = []
+        devices = []
+        cities = []
         for path, subdirs, files in os.walk(root):
             for name in files:
                 if fnmatch(name, pattern):
@@ -26,11 +31,19 @@ class RawWaveDataset(Dataset):
                     if self.test: 
                         label = None
                         device = None
+                        city = None
                     else: 
                         label = name.split('-')[0]
                         device = name.split('-')[-1].split('.')[0]
+                        city = name.split('-')[1]
                     wav_files.append((wav_path, label, device))
-        return wav_files
+                    labels.append(label)
+                    devices.append(device)
+                    cities.append(city)
+        label_counter = Counter(labels)
+        device_counter = Counter(devices)
+        city_counter = Counter(cities)
+        return wav_files, label_counter, device_counter, city_counter
 
     def __getitem__(self, idx):
         if torch.is_tensor(idx):
@@ -42,20 +55,11 @@ class RawWaveDataset(Dataset):
         waveform = waveform[:, :10*self.sampling_rate]
         return waveform, self.labels_list.index(label), self.device_list.index(device)
 
+
+
+
 if __name__ == "__main__":
 
     DATA_PATH = 'data/audio'
-    audio_list = os.listdir(DATA_PATH)
-
-    for name in audio_list:
-        label = name.split('-')[0]
-        device = name.split('-')[-1].split('.')[0]
-        labels.append(label)
-        devices.append(device)
-
-    labels_set =sorted(list(set(labels)))
-    devices_set = sorted(list(set(devices)))
-
-
-    dataset = RawWaveDataset(DATA_PATH, labels_set, devices_set)
+    dataset = RawWaveDataset(DATA_PATH)
     print(dataset[0][0].shape)
