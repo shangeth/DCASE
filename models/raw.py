@@ -32,7 +32,41 @@ class Residual1DBlock(nn.Module):
         out = F.relu(self.bn(self.conv(input)))
         out += residual
         return out
-        
+
+class CNN1d_1s(nn.Module):
+    def __init__(self, n_classes):
+        super(CNN1d_1s, self).__init__()
+        self.sinc_net = nn.Sequential(nn.Conv1d(1, 16, 10, 5),
+                                    nn.LeakyReLU(0.3),
+                                    nn.BatchNorm1d(16),
+                                    nn.MaxPool1d(4, 4),
+                                    nn.Conv1d(16, 32, 10, 5),
+                                    nn.LeakyReLU(0.3),
+                                    nn.BatchNorm1d(32),
+                                    nn.MaxPool1d(4, 4),
+                                    nn.Conv1d(32, 64, 10, 5),
+                                    nn.LeakyReLU(0.3),
+                                    nn.BatchNorm1d(64),
+                                    nn.MaxPool1d(2, 2)
+                     )
+        self.avg_pool = nn.AvgPool1d(10, 10, count_include_pad=False)
+        self.sinc_net.out_dim = 640
+        self.fc_net = nn.Sequential(nn.Linear(self.sinc_net.out_dim, 128),
+                            nn.LeakyReLU(0.3),
+                            nn.Dropout(0.5),
+                            nn.Linear(128, n_classes))
+
+    def forward(self, x):
+        bs = x.size(0)
+        x = x.view(-1, 1, 44100)
+        x = self.sinc_net(x)
+        x = x.transpose(2,0)
+        x = self.avg_pool(x).transpose(2,0)
+
+        x = x.reshape(bs, -1)
+        x = self.fc_net(x)
+        return x
+
 
 class CNN1D(nn.Module):
     def __init__(self, classes_num):
