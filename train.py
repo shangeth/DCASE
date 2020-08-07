@@ -6,6 +6,7 @@ import torch.nn as nn
 import time
 from tqdm import tqdm
 from torch.utils.tensorboard import SummaryWriter
+import matplotlib.pyplot as plt
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -91,6 +92,8 @@ for epoch in range(epochs):
             max_vals, max_indices = torch.max(y_hat1,1)
             val_batch_accuracy = (max_indices == batch_y1).sum().data.cpu().numpy()/max_indices.size()[0]
             val_accuracy += val_batch_accuracy
+            writer.add_scalar('Loss/val', loss.item(), iter)
+            writer.add_scalar('Accuracy/val', val_batch_accuracy, iter)
 
         val_loss = val_loss/len(valloader)
         val_accuracy = val_accuracy/len(valloader)
@@ -102,3 +105,22 @@ for epoch in range(epochs):
     print(f'\rEpoch : {epoch+1:02}\tLoss : {epoch_loss:.4f}\tAccuracy : {epoch_accuracy:.4f}\tVal Loss : {val_loss:.4f}\tVal Accuracy : {val_accuracy:.4f}\tTime : {t:.2f} s')
 
 writer.close()
+
+plt.figure(figsize=(20,10))
+plt.title('Training Learning Curve')
+
+plt.subplot(1,2,1)
+plt.xlabel('Epochs')
+plt.ylabel('Cross Entropy loss')
+plt.plot(train_losses[:9], label='Loss')
+plt.plot(val_losses[:9], label='Val Loss')
+plt.legend()
+
+plt.subplot(1,2,2)
+plt.xlabel('Epochs')
+plt.ylabel('Accuracy')
+plt.plot(train_accuracies[:9], label='Accuracy')
+plt.plot(val_accuracies[:9], label='Val Accuracy')
+plt.legend()
+plt.savefig('training_curve.png')
+plt.show()
