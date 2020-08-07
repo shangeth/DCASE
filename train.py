@@ -2,7 +2,7 @@ from dataset.Dataset20191b import RawWaveDataset
 from dataset.utils import get_dataloader
 from model.raw import CNN1d_1s
 import torch
-
+import torch.nn as nn
 import time
 from tqdm import tqdm
 from torch.utils.tensorboard import SummaryWriter
@@ -54,7 +54,7 @@ for epoch in range(epochs):
         model.train()
         batch_x, batch_y1, batch_y2 = batch
         batch_x, batch_y1, batch_y2 = batch_x.to(device), batch_y1.to(device), batch_y2.to(device)
-        y_hat1, y_hat2 = model(batch_x) # forward pass throough model
+        y_hat1 = model(batch_x) # forward pass throough model
         loss = criterion(y_hat1, batch_y1) 
         # + criterion(y_hat2, batch_y2) # compute the loss
         epoch_loss += loss.item()
@@ -82,7 +82,7 @@ for epoch in range(epochs):
         for batch in valloader:
             batch_x, batch_y1, batch_y2 = batch
             batch_x, batch_y1, batch_y2 = batch_x.to(device), batch_y1.to(device), batch_y2.to(device)
-            y_hat1, y_hat2 = model(batch_x) # forward pass throough model
+            y_hat1 = model(batch_x) # forward pass throough model
             loss = criterion(y_hat1, batch_y1) 
             # + criterion(y_hat2, batch_y2)
             val_loss += loss.item()
