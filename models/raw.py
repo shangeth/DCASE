@@ -73,7 +73,8 @@ class CNN1d_1s(nn.Module):
     def print_summary(self):
         print('Model Summary')
         print('-'*10)
-        print(summary(self, input_size=(1, self.fs*self.ns)), '\n')
+        summary(self, input_size=(1, self.fs*self.ns))
+        print('\n')
 
 
 class CNN1D(nn.Module):

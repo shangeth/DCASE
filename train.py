@@ -17,7 +17,7 @@ trainloader, valloader = get_dataloader(dataset)
 
 model = CNN1d_1s(dataset.class_num, fs, ns)
 model.to(device)
-mode.print_summary()
+model.print_summary()
 
 test_x = torch.randn(1, 1, fs*ns)
 y_test = model(test_x.to(device))
