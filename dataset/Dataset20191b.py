@@ -19,7 +19,7 @@ class RawWaveDataset(Dataset):
         self.class_num = len(self.labels_list)
         
     def __len__(self):
-        return len(self.wave_files)
+        return len(self.wav_files)
 
     def get_wav_files(self, root, pattern = "*.wav"):
         wav_files = []
@@ -64,7 +64,7 @@ class RawWaveDataset(Dataset):
         print(f'Length of Dataset = {len(self.wav_files)}')
         print(f'Labels =\n{self.label_counter}')
         print(f'Device =\n{self.device_counter}')
-        print(f'Cities =\n{self.city_counter}')
+        print(f'Cities =\n{self.city_counter}\n')
 
 
 if __name__ == "__main__":
