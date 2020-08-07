@@ -1,6 +1,6 @@
 from dataset.Dataset20191b import RawWaveDataset
 from dataset.utils import get_dataloader
-from models.1d import CNN1D
+from models.raw import CNN1D
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
