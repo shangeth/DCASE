@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torchsummary import summary
 
 class Conv1DBlock(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size=10, stride=5):
@@ -34,8 +35,10 @@ class Residual1DBlock(nn.Module):
         return out
 
 class CNN1d_1s(nn.Module):
-    def __init__(self, n_classes):
+    def __init__(self, n_classes, fs, ns):
         super(CNN1d_1s, self).__init__()
+        self.fs = fs
+        self.ns = ns
         self.sinc_net = nn.Sequential(nn.Conv1d(1, 16, 10, 5),
                                     nn.LeakyReLU(0.3),
                                     nn.BatchNorm1d(16),
@@ -58,7 +61,7 @@ class CNN1d_1s(nn.Module):
 
     def forward(self, x):
         bs = x.size(0)
-        x = x.view(-1, 1, 44100)
+        x = x.view(-1, 1, self.fs)
         x = self.sinc_net(x)
         x = x.transpose(2,0)
         x = self.avg_pool(x).transpose(2,0)
@@ -66,6 +69,11 @@ class CNN1d_1s(nn.Module):
         x = x.reshape(bs, -1)
         x = self.fc_net(x)
         return x
+    
+    def print_summary(self):
+        print('Model Summary')
+        print('-'*10)
+        print(summary(self, input_size=(1, self.fs*self.ns)), '\n')
 
 
 class CNN1D(nn.Module):
