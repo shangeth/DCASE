@@ -87,12 +87,13 @@ class CNN1D(nn.Module):
                                                 Conv1DBlock(16, 32),
                                                 Conv1DBlock(32, 32),
                                                 Residual1DBlock(32),
+                                                Conv1DBlock(32, 32),
                                                 Conv1DBlock(32, 32))
 
-        self.classifier = nn.Sequential(nn.Linear(1568,1024),
+        self.classifier = nn.Sequential(nn.Linear(832,256),
                                         nn.ReLU(),
                                         nn.Dropout(0.5),
-                                        nn.Linear(1024, classes_num))
+                                        nn.Linear(256, classes_num))
     def forward(self, input):
         features = self.feature_extractor(input)
         features = features.view(features.size(0), -1)
@@ -105,7 +106,7 @@ class CNN1D(nn.Module):
         print('\n')
 
 if __name__ == "__main__":
-    test_input = torch.randn(5, 1, 160000)
+    test_input = torch.randn(5, 1, 441000)
     model = CNN1D(3)
     y_hat = model(test_input)
     print(y_hat.shape)

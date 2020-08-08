@@ -8,8 +8,15 @@ from tqdm import tqdm
 from torch.utils.tensorboard import SummaryWriter
 import matplotlib.pyplot as plt
 from datetime import datetime
+import numpy as np
+import logging
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+logging.basicConfig(filename=f'logging/logs/training_log_{datetime.datetime.now().strftime("%Y-%m-%d-%H:%M")}.log', 
+                    level=logging.INFO,
+                    format='%(asctime)s: %(message)s',
+                    datefmt='%d-%m-%Y %H:%M:%S')
 
 DATA_DIR = '/content/TAU-urban-acoustic-scenes-2019-mobile-development/audio'
 dataset = RawWaveDataset(DATA_DIR)
@@ -28,7 +35,7 @@ y_test = model(test_x.to(device))
 print(y_test.shape)
 
 criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=5e-4)
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 
 
 
@@ -36,7 +43,9 @@ optimizer = torch.optim.Adam(model.parameters(), lr=5e-4)
 
 writer = SummaryWriter(f'logging/runs/{datetime.now().strftime("%m-%d-%Y_%H:%M:%S")}')
 # no of epochs
-epochs = 20
+epochs = 50
+
+val_loss_min = np.inf
 
 # loss lists to visualize
 train_losses = []
@@ -100,10 +109,14 @@ for epoch in range(epochs):
         val_accuracies.append(val_accuracy)
         writer.add_scalar('Loss/epoch_val', val_loss, epoch)
         writer.add_scalar('Accuracy/epoch_val', val_accuracy, epoch)
+        if val_loss < val_loss_min:
+            torch.save(model.state_dict(), 'logging/trained_model.pt')
+            print(f'Validation loss reduced from {val_loss_min} to  {val_loss_min}, saving model...')
+            val_loss_min = val_loss
     t2 = time.time()
     t = t2-t1
-    torch.save(model.state_dict(), 'logging/trained_model.pt')
-    print(f'\rEpoch : {epoch+1:02}\tLoss : {epoch_loss:.4f}\tAccuracy : {epoch_accuracy:.4f}\tVal Loss : {val_loss:.4f}\tVal Accuracy : {val_accuracy:.4f}\tTime : {t:.2f} s')
+    logging.info(f'Epoch : {epoch+1:02}\tLoss : {epoch_loss:.4f}\tAccuracy : {epoch_accuracy:.4f}\tVal Loss : {val_loss:.4f}\tVal Accuracy : {val_accuracy:.4f}\tTime : {t:.2f} s')
+    print(f'\nEpoch : {epoch+1:02}\tLoss : {epoch_loss:.4f}\tAccuracy : {epoch_accuracy:.4f}\tVal Loss : {val_loss:.4f}\tVal Accuracy : {val_accuracy:.4f}\tTime : {t:.2f} s')
 
 writer.close()
 
