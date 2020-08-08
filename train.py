@@ -11,7 +11,7 @@ from datetime import datetime
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-DATA_DIR = 'data/audio'
+DATA_DIR = '/content/TAU-urban-acoustic-scenes-2019-mobile-development/audio'
 dataset = RawWaveDataset(DATA_DIR)
 dataset.print_stats()
 fs = dataset.fs
@@ -67,8 +67,8 @@ for epoch in range(epochs):
         max_vals, max_indices = torch.max(y_hat1,1)
         train_batch_accuracy = (max_indices == batch_y1).sum().data.cpu().numpy()/max_indices.size()[0]
         epoch_accuracy += train_batch_accuracy
-        writer.add_scalar('Loss/train', loss.item(), iter)
-        writer.add_scalar('Accuracy/train', train_batch_accuracy, iter)
+        writer.add_scalar('Loss/step_train', loss.item(), iter)
+        writer.add_scalar('Accuracy/step_train', train_batch_accuracy, iter)
         # print(loss.item(), train_batch_accuracy)
         iter += 1
     epoch_loss = epoch_loss/len(trainloader)
@@ -92,13 +92,14 @@ for epoch in range(epochs):
             max_vals, max_indices = torch.max(y_hat1,1)
             val_batch_accuracy = (max_indices == batch_y1).sum().data.cpu().numpy()/max_indices.size()[0]
             val_accuracy += val_batch_accuracy
-            writer.add_scalar('Loss/val', loss.item(), iter)
-            writer.add_scalar('Accuracy/val', val_batch_accuracy, iter)
+            
 
         val_loss = val_loss/len(valloader)
         val_accuracy = val_accuracy/len(valloader)
         val_losses.append(val_loss)
         val_accuracies.append(val_accuracy)
+        writer.add_scalar('Loss/epoch_val', val_loss, epoch)
+        writer.add_scalar('Accuracy/epoch_val', val_accuracy, epoch)
     t2 = time.time()
     t = t2-t1
     torch.save(model.state_dict(), 'logging/trained_model.pt')
