@@ -77,8 +77,10 @@ class CNN1d_1s(nn.Module):
 
 
 class CNN1D(nn.Module):
-    def __init__(self, classes_num):
+    def __init__(self, classes_num, fs, ns):
         super(CNN1D, self).__init__()
+        self.fs = fs
+        self.ns = ns
         self.feature_extractor = nn.Sequential(Conv1DBlock(1, 16),
                                                Conv1DBlock(16, 16),
                                                 Residual1DBlock(16),
@@ -96,6 +98,11 @@ class CNN1D(nn.Module):
         features = features.view(features.size(0), -1)
         out = self.classifier(features)
         return out
+    
+    def print_summary(self):
+        print('Model Summary')
+        summary(self, input_size=(1, self.fs*self.ns))
+        print('\n')
 
 if __name__ == "__main__":
     test_input = torch.randn(5, 1, 160000)
