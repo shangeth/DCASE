@@ -13,7 +13,7 @@ import logging
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-logging.basicConfig(filename=f'logging/logs/training_log_{datetime.datetime.now().strftime("%Y-%m-%d-%H:%M")}.log', 
+logging.basicConfig(filename=f'logging/logs/training_log_{datetime.now().strftime("%Y-%m-%d-%H:%M")}.log', 
                     level=logging.INFO,
                     format='%(asctime)s: %(message)s',
                     datefmt='%d-%m-%Y %H:%M:%S')
