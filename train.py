@@ -111,12 +111,13 @@ for epoch in range(epochs):
         writer.add_scalar('Accuracy/epoch_val', val_accuracy, epoch)
         if val_loss < val_loss_min:
             torch.save(model.state_dict(), 'logging/trained_model.pt')
-            print(f'Validation loss reduced from {val_loss_min} to  {val_loss_min}, saving model...')
+            logging.info(f'Validation loss reduced from {val_loss_min} to  {val_loss}, saving model...')
+            tqdm.write(f'Validation loss reduced from {val_loss_min} to  {val_loss}, saving model...')
             val_loss_min = val_loss
     t2 = time.time()
     t = t2-t1
     logging.info(f'Epoch : {epoch+1:02}\tLoss : {epoch_loss:.4f}\tAccuracy : {epoch_accuracy:.4f}\tVal Loss : {val_loss:.4f}\tVal Accuracy : {val_accuracy:.4f}\tTime : {t:.2f} s')
-    print(f'\nEpoch : {epoch+1:02}\tLoss : {epoch_loss:.4f}\tAccuracy : {epoch_accuracy:.4f}\tVal Loss : {val_loss:.4f}\tVal Accuracy : {val_accuracy:.4f}\tTime : {t:.2f} s')
+    tqdm.write(f'\nEpoch : {epoch+1:02}\tLoss : {epoch_loss:.4f}\tAccuracy : {epoch_accuracy:.4f}\tVal Loss : {val_loss:.4f}\tVal Accuracy : {val_accuracy:.4f}\tTime : {t:.2f} s')
 
 writer.close()
 
