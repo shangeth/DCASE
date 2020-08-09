@@ -27,6 +27,6 @@ def get_mel_spectrogram(DATA_PATH, SAVE_DIR, samplerate=16000, n_mels=40):
         np.save(SAVE_DIR+'/'+arr_name+'.npy', feature)
 
 if __name__ == "__main__":
-    DATA_PATH = 'data/audio'
+    DATA_PATH = '/content/TAU-urban-acoustic-scenes-2019-mobile-development/audio'
     SAVE_DIR = 'data/features'
-    get_mel_spectrogram(DATA_PATH, SAVE_DIR)
+    get_mfcc(DATA_PATH, SAVE_DIR)

@@ -1,6 +1,6 @@
 from dataset.Dataset20191b import MFCC_Dataset
 from dataset.utils import get_dataloader
-from model.spectral import CNN_MFCC_2D
+from model.spectral import CNN_MEL_2D
 import torch
 import torch.nn as nn
 import time
@@ -21,7 +21,7 @@ logging.basicConfig(filename=f'logging/logs/training_log_{datetime.now().strftim
                     format='%(asctime)s: %(message)s',
                     datefmt='%d-%m-%Y %H:%M:%S')
 
-DATA_DIR = '/content/DCASE/data/mel_16k'
+DATA_DIR = '/content/content/features'
 dataset = MFCC_Dataset(DATA_DIR)
 dataset.print_stats()
 fs = dataset.fs
@@ -29,7 +29,7 @@ ns = dataset.ns
 trainloader, valloader = get_dataloader(dataset, spectral=True)
 
 
-model = CNN_MFCC_2D(dataset.class_num, fs, ns)
+model = CNN_MEL_2D(dataset.class_num, fs, ns)
 model.to(device)
 model.print_summary()
 
