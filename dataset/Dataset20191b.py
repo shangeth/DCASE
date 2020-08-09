@@ -80,8 +80,8 @@ class MFCC_Dataset(Dataset):
         self.labels_list =sorted(list(self.label_counter.keys()))
         self.device_list = sorted(list(self.device_counter.keys()))
         self.class_num = len(self.labels_list)
-        if self.undersample:
-            self.fs = self.sampling_rate
+        if undersample:
+            self.fs = sampling_rate
         else: 
             self.fs = 44100
         self.ns = 10

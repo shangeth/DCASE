@@ -22,7 +22,6 @@ def get_mel_spectrogram(DATA_PATH, SAVE_DIR, samplerate=16000, n_mels=40):
                                 sr=samplerate,
                                 n_fft=int(0.04*samplerate),
                                 hop_length=int(0.02*samplerate),
-                                win_length=int(0.04*sample_rate),
                                 n_mels=n_mels)
         feature = np.log10(np.maximum(feature, 1e-10))
         np.save(SAVE_DIR+'/'+arr_name+'.npy', feature)
@@ -30,4 +29,4 @@ def get_mel_spectrogram(DATA_PATH, SAVE_DIR, samplerate=16000, n_mels=40):
 if __name__ == "__main__":
     DATA_PATH = 'data/audio'
     SAVE_DIR = 'data/features'
-    get_mfcc(DATA_PATH, SAVE_DIR)
+    get_mel_spectrogram(DATA_PATH, SAVE_DIR)
