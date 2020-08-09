@@ -169,7 +169,7 @@ def solve_interpolation(train_points, train_values, order, regularization_weight
 #     print('RHS', rhs, rhs.shape)
 
     # Then, solve the linear system and unpack the results.
-    X, LU = torch.gesv(rhs, lhs)
+    X, LU = torch.solve(rhs, lhs)
     w = X[:, :n, :]
     v = X[:, n:, :]
 
@@ -212,7 +212,7 @@ def phi(r, order):
         r = torch.sqrt(r)
         return r
     elif order == 2:
-        return 0.5 * r * torch.log(torch.max(r, EPSILON))
+        return 0.5 * r.pow(2) * torch.log(torch.max(r, EPSILON))
     elif order == 4:
         return 0.5 * torch.square(r) * torch.log(torch.max(r, EPSILON))
     elif order % 2 == 0:
