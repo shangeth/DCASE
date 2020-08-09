@@ -28,5 +28,5 @@ def get_mel_spectrogram(DATA_PATH, SAVE_DIR, samplerate=16000, n_mels=40):
 
 if __name__ == "__main__":
     DATA_PATH = 'data/audio'
-    SAVE_DIR = 'data/features'
+    SAVE_DIR = 'data/mfcc'
     get_mfcc(DATA_PATH, SAVE_DIR)

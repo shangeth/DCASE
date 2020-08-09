@@ -21,7 +21,7 @@ logging.basicConfig(filename=f'logging/logs/training_log_{datetime.now().strftim
                     format='%(asctime)s: %(message)s',
                     datefmt='%d-%m-%Y %H:%M:%S')
 
-DATA_DIR = 'data/features'
+DATA_DIR = 'data/mfcc'
 dataset = Spectral_Dataset(DATA_DIR)
 dataset.print_stats()
 fs = dataset.fs
@@ -45,7 +45,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 
 writer = SummaryWriter(f'logging/runs/{datetime.now().strftime("%m-%d-%Y_%H:%M:%S")}')
 # no of epochs
-epochs = 100
+epochs = 10
 
 val_loss_min = np.inf
 
