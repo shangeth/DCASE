@@ -6,6 +6,8 @@ from fnmatch import fnmatch
 import torch
 from collections import Counter
 import numpy
+from data_aug import time_mask, time_warp, freq_mask
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 class RawWaveDataset(Dataset):
     def __init__(self, root_dir, test=False, undersample=False, sampling_rate=16000):
@@ -123,8 +125,12 @@ class MFCC_Dataset(Dataset):
 
         file_name, label, device = self.wav_files[idx]
         waveform = torch.tensor(numpy.load(file_name)).float()
-        if self.dim2d:
-            waveform = waveform.unsqueeze(0)
+    
+        waveform = waveform.unsqueeze(0)
+        waveform = time_mask(freq_mask(time_warp(waveform.to(device)), num_masks=2), num_masks=2)
+
+        if not self.dim2d:
+            waveform = waveform.squeeze(0)
         return waveform, self.labels_list.index(label), self.device_list.index(device)
 
     def print_stats(self):

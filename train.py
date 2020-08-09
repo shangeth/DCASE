@@ -46,7 +46,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 
 writer = SummaryWriter(f'logging/runs/{datetime.now().strftime("%m-%d-%Y_%H:%M:%S")}')
 # no of epochs
-epochs = 2
+epochs = 100
 
 val_loss_min = np.inf
 
@@ -164,10 +164,10 @@ print(f'\nValidation Accuracy = {acc}\n')
 logging.info(f'\nValidation Accuracy = {acc}\n')
 
 clf_report = classification_report(true_labels, predictions, target_names=dataset.labels_list)
-print(f'\nnValidation Classification Report :\n{clf_report}\n')
+print(f'\nValidation Classification Report :\n{clf_report}\n')
 logging.info(f'\nnValidation Classification Report\n{clf_report}\n')    
 
-print(f'nValidation Confusion Matrix :\n')
+print(f'\nValidation Confusion Matrix :\n')
 cf_matrix = confusion_matrix(true_labels, predictions)
 hm = sns.heatmap(cf_matrix/np.sum(cf_matrix), annot=True, 
             fmt='.2%', cmap='Blues', xticklabels=dataset.labels_list,
