@@ -17,7 +17,6 @@ class RawWaveDataset(Dataset):
         self.root_dir = root_dir
         self.test = test
         self.wav_files, self.label_counter, self.device_counter, self.city_counter = self.get_wav_files(self.root_dir)
-
         self.labels_list =sorted(list(self.label_counter.keys()))
         self.device_list = sorted(list(self.device_counter.keys()))
         self.undersample = undersample
@@ -130,17 +129,9 @@ class MFCC_Dataset(Dataset):
         waveform = torch.tensor(numpy.load(file_name)).float()
     
         waveform = waveform.unsqueeze(0)
-        if random.random() >= 0.5:
-            waveform = time_mask(waveform, num_masks=2)
-        
-        if random.random() >= 0.5:
-            waveform = freq_mask(waveform, num_masks=2)
-
-        if random.random() >= 0.5:
-            waveform = time_warp(waveform)
-
-        if not self.dim2d:
-            waveform = waveform.squeeze(0)
+            
+            if not self.dim2d:
+                waveform = waveform.squeeze(0)
         return waveform, self.labels_list.index(label), self.device_list.index(device)
 
     def print_stats(self):
@@ -150,6 +141,28 @@ class MFCC_Dataset(Dataset):
         print(f'Labels =\n{self.label_counter}')
         print(f'Device =\n{self.device_counter}')
         print(f'Cities =\n{self.city_counter}\n')
+
+class ApplyAug(Dataset):
+
+    def __init__(self, dataset):
+        self.dataset = dataset
+
+    def __getitem__(self, idx):
+        waveform, label, device = self.dataset[idx]
+
+        if random.random() >= 0.5:
+                waveform = time_mask(waveform, num_masks=2)
+            
+        if random.random() >= 0.5:
+            waveform = freq_mask(waveform, num_masks=2)
+
+        if random.random() >= 0.5:
+            waveform = time_warp(waveform)
+        
+        return waveform, label, device
+
+    def __len__(self):
+        return len(self.dataset)
 
 
 if __name__ == "__main__":
