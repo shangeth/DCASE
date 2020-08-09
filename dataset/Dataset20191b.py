@@ -130,8 +130,8 @@ class MFCC_Dataset(Dataset):
     
         waveform = waveform.unsqueeze(0)
             
-            if not self.dim2d:
-                waveform = waveform.squeeze(0)
+        if not self.dim2d:
+            waveform = waveform.squeeze(0)
         return waveform, self.labels_list.index(label), self.device_list.index(device)
 
     def print_stats(self):

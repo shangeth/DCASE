@@ -26,7 +26,7 @@ dataset = MFCC_Dataset(DATA_DIR)
 dataset.print_stats()
 fs = dataset.fs
 ns = dataset.ns
-trainloader, valloader = get_dataloader(dataset)
+trainloader, valloader = get_dataloader(dataset, spectral=True)
 
 
 model = CNN_MFCC_2D(dataset.class_num, fs, ns)
