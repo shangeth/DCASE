@@ -10,6 +10,9 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 import numpy as np
 import logging
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix, accuracy_score
+import seaborn as sns
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -18,7 +21,7 @@ logging.basicConfig(filename=f'logging/logs/training_log_{datetime.now().strftim
                     format='%(asctime)s: %(message)s',
                     datefmt='%d-%m-%Y %H:%M:%S')
 
-DATA_DIR = '/content/DCASE/data/features'
+DATA_DIR = '/content/DCASE/data/mel_16k'
 dataset = MFCC_Dataset(DATA_DIR)
 dataset.print_stats()
 fs = dataset.fs
@@ -43,7 +46,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 
 writer = SummaryWriter(f'logging/runs/{datetime.now().strftime("%m-%d-%Y_%H:%M:%S")}')
 # no of epochs
-epochs = 50
+epochs = 2
 
 val_loss_min = np.inf
 
@@ -127,15 +130,48 @@ plt.title('Training Learning Curve')
 plt.subplot(1,2,1)
 plt.xlabel('Epochs')
 plt.ylabel('Cross Entropy loss')
-plt.plot(train_losses[:9], label='Loss')
-plt.plot(val_losses[:9], label='Val Loss')
+plt.plot(train_losses, label='Loss')
+plt.plot(val_losses, label='Val Loss')
 plt.legend()
 
 plt.subplot(1,2,2)
 plt.xlabel('Epochs')
 plt.ylabel('Accuracy')
-plt.plot(train_accuracies[:9], label='Accuracy')
-plt.plot(val_accuracies[:9], label='Val Accuracy')
+plt.plot(train_accuracies, label='Accuracy')
+plt.plot(val_accuracies, label='Val Accuracy')
 plt.legend()
 plt.savefig('logging/training_curve.png')
 plt.show()
+
+# ---------------------------------
+model.load_state_dict(torch.load('logging/trained_model.pt'))
+true_labels = []
+predictions = []
+model.eval() # evaluation mode
+with torch.no_grad(): # no gradients/back propagation for evaluation
+    val_loss = 0
+    val_accuracy = 0
+    for batch in valloader:
+        batch_x, batch_y1, batch_y2 = batch
+        batch_x, batch_y1, batch_y2 = batch_x.to(device), batch_y1.to(device), batch_y2.to(device)
+        y_hat1 = model(batch_x) # forward pass throough model
+        _, max_indices = torch.max(y_hat1,1)
+        predictions += max_indices.cpu().detach().numpy().reshape(-1).tolist()
+        true_labels += batch_y1.cpu().detach().numpy().reshape(-1).tolist()
+
+acc = accuracy_score(true_labels, predictions)
+print(f'\nValidation Accuracy = {acc}\n')
+logging.info(f'\nValidation Accuracy = {acc}\n')
+
+clf_report = classification_report(true_labels, predictions, target_names=dataset.labels_list)
+print(f'\nnValidation Classification Report :\n{clf_report}\n')
+logging.info(f'\nnValidation Classification Report\n{clf_report}\n')    
+
+print(f'nValidation Confusion Matrix :\n')
+cf_matrix = confusion_matrix(true_labels, predictions)
+hm = sns.heatmap(cf_matrix/np.sum(cf_matrix), annot=True, 
+            fmt='.2%', cmap='Blues', xticklabels=dataset.labels_list,
+            yticklabels=dataset.labels_list)
+plt.show()
+fig = hm.get_figure()
+fig.savefig('logging/confusion_matrix.png') 
