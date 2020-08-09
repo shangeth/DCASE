@@ -33,23 +33,26 @@ class CNN_MFCC_1D(nn.Module):
         print('\n')
 
 class CNN_MFCC_2D(nn.Module):
-    def __init__(self, class_num):
+    def __init__(self, class_num, fs, ns):
         super(CNN_MFCC_2D, self).__init__()
-        self.cnn_network = nn.Sequential(nn.Conv2d(in_channels=1, out_channels=16, kernel_size=10, stride=5),
+        self.cnn_network = nn.Sequential(nn.Conv2d(in_channels=1, out_channels=16, kernel_size=(5, 10), stride=(1,2)),
                             nn.ReLU(),
-                            nn.BatchNorm1d(16),
-                            nn.Conv1d(in_channels=16, out_channels=32, kernel_size=10, stride=5),
+                            nn.BatchNorm2d(16),
+                            nn.MaxPool2d(2, 2),
+                            nn.Conv2d(in_channels=16, out_channels=32, kernel_size=(5, 10), stride=(1,2)),
                             nn.ReLU(),
-                            nn.BatchNorm1d(32),
-                            nn.Conv1d(in_channels=32, out_channels=64, kernel_size=10, stride=5),
+                            nn.BatchNorm2d(32),
+                            nn.MaxPool2d(2, 2),
+                            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=(3, 6), stride=(1,2)),
                             nn.ReLU(),
-                            nn.BatchNorm1d(64),
+                            nn.BatchNorm2d(64),
+                            nn.MaxPool2d(2, 2),
                             )
         
-        self.ann_network = nn.Sequential(nn.Linear(50, 32),
+        self.ann_network = nn.Sequential(nn.Linear(768, 128),
                                     nn.ReLU(),
                                     nn.Dropout(0.5),
-                                    nn.Linear(32, class_num))
+                                    nn.Linear(128, class_num))
   
     def forward(self, x):
         cnn = self.cnn_network(x)
@@ -59,5 +62,5 @@ class CNN_MFCC_2D(nn.Module):
 
     def print_summary(self):
         print('Model Summary')
-        summary(self, input_size=(1, 40, 801))
+        summary(self, input_size=(1, 40, 501))
         print('\n')

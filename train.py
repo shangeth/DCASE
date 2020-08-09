@@ -1,6 +1,6 @@
-from dataset.Dataset20191b import RawWaveDataset
+from dataset.Dataset20191b import MFCC_Dataset
 from dataset.utils import get_dataloader
-from model.raw import CNN1d_1s
+from model.spectral import CNN_MFCC_2D
 import torch
 import torch.nn as nn
 import time
@@ -18,21 +18,21 @@ logging.basicConfig(filename=f'logging/logs/training_log_{datetime.now().strftim
                     format='%(asctime)s: %(message)s',
                     datefmt='%d-%m-%Y %H:%M:%S')
 
-DATA_DIR = '/content/TAU-urban-acoustic-scenes-2019-mobile-development/audio'
-dataset = RawWaveDataset(DATA_DIR)
+DATA_DIR = '/content/DCASE/data/features'
+dataset = MFCC_Dataset(DATA_DIR)
 dataset.print_stats()
 fs = dataset.fs
 ns = dataset.ns
 trainloader, valloader = get_dataloader(dataset)
 
 
-model = CNN1d_1s(dataset.class_num, fs, ns)
+model = CNN_MFCC_2D(dataset.class_num, fs, ns)
 model.to(device)
 model.print_summary()
 
-test_x = torch.randn(1, 1, fs*ns)
-y_test = model(test_x.to(device))
-print(y_test.shape)
+# test_x = torch.randn(1, 1, fs*ns)
+# y_test = model(test_x.to(device))
+# print(y_test.shape)
 
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)

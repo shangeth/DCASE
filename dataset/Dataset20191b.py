@@ -5,6 +5,7 @@ import os
 from fnmatch import fnmatch
 import torch
 from collections import Counter
+import numpy
 
 class RawWaveDataset(Dataset):
     def __init__(self, root_dir, test=False, undersample=False, sampling_rate=16000):
@@ -72,9 +73,10 @@ class RawWaveDataset(Dataset):
         print(f'Cities =\n{self.city_counter}\n')
 
 class MFCC_Dataset(Dataset):
-    def __init__(self, root_dir, test=False, undersample=False, sampling_rate=16000):
+    def __init__(self, root_dir, test=False, undersample=False, sampling_rate=16000, dim2d=True):
         self.root_dir = root_dir
         self.test = test
+        self.dim2d = dim2d
         self.wav_files, self.label_counter, self.device_counter, self.city_counter = self.get_wav_files(self.root_dir)
 
         self.labels_list =sorted(list(self.label_counter.keys()))
@@ -89,7 +91,7 @@ class MFCC_Dataset(Dataset):
     def __len__(self):
         return len(self.wav_files)
 
-    def get_wav_files(self, root, pattern = "*.wav"):
+    def get_wav_files(self, root, pattern = "*.npy"):
         wav_files = []
         labels = []
         devices = []
@@ -120,7 +122,9 @@ class MFCC_Dataset(Dataset):
             idx = idx.tolist()
 
         file_name, label, device = self.wav_files[idx]
-        waveform = torch.tensor(numpy.load(file_name))
+        waveform = torch.tensor(numpy.load(file_name)).float()
+        if self.dim2d:
+            waveform = waveform.unsqueeze(0)
         return waveform, self.labels_list.index(label), self.device_list.index(device)
 
     def print_stats(self):
