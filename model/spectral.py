@@ -3,9 +3,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torchsummary import summary
 
-class CNN_MFCC_1D(nn.Module):
+class CNN_MEL_1D(nn.Module):
     def __init__(self, class_num):
-        super(CNN_MFCC_1D, self).__init__()
+        super(CNN_MEL_1D, self).__init__()
         self.cnn_network = nn.Sequential(nn.Conv1d(in_channels=40, out_channels=100, kernel_size=10, stride=5),
                             nn.ReLU(),
                             nn.BatchNorm1d(100),
@@ -32,9 +32,9 @@ class CNN_MFCC_1D(nn.Module):
         summary(self, input_size=(1, 40, 801))
         print('\n')
 
-class CNN_MFCC_2D(nn.Module):
+class CNN_MEL_2D(nn.Module):
     def __init__(self, class_num, fs, ns):
-        super(CNN_MFCC_2D, self).__init__()
+        super(CNN_MEL_2D, self).__init__()
         self.cnn_network = nn.Sequential(nn.Conv2d(in_channels=1, out_channels=16, kernel_size=(5, 10), stride=(1,2)),
                             nn.ReLU(),
                             nn.BatchNorm2d(16),
@@ -65,9 +65,9 @@ class CNN_MFCC_2D(nn.Module):
         summary(self, input_size=(1, 40, 501))
         print('\n')
 
-class CNN_MEL_2D(nn.Module):
+class CNN_MFCC_2D(nn.Module):
     def __init__(self, class_num, fs, ns):
-        super(CNN_MEL_2D, self).__init__()
+        super(CNN_MFCC_2D, self).__init__()
         self.cnn_network = nn.Sequential(nn.Conv2d(in_channels=1, out_channels=16, kernel_size=(5, 10), stride=(1,2)),
                             nn.ReLU(),
                             nn.BatchNorm2d(16),

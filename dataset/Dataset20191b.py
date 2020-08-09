@@ -76,7 +76,7 @@ class RawWaveDataset(Dataset):
         print(f'Device =\n{self.device_counter}')
         print(f'Cities =\n{self.city_counter}\n')
 
-class MFCC_Dataset(Dataset):
+class Spectral_Dataset(Dataset):
     def __init__(self, root_dir, test=False, undersample=False, sampling_rate=16000, dim2d=True):
         self.root_dir = root_dir
         self.test = test
