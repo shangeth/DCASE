@@ -17,7 +17,10 @@ class RawWaveDataset(Dataset):
         self.undersample = undersample
         self.sampling_rate = sampling_rate
         self.class_num = len(self.labels_list)
-        self.fs = 44100
+        if self.undersample:
+            self.fs = self.sampling_rate
+        else: 
+            self.fs = 44100
         self.ns = 10
         
     def __len__(self):
@@ -69,7 +72,7 @@ class RawWaveDataset(Dataset):
         print(f'Cities =\n{self.city_counter}\n')
 
 class MFCC_Dataset(Dataset):
-    def __init__(self, root_dir, test=False):
+    def __init__(self, root_dir, test=False, undersample=False, sampling_rate=16000):
         self.root_dir = root_dir
         self.test = test
         self.wav_files, self.label_counter, self.device_counter, self.city_counter = self.get_wav_files(self.root_dir)
@@ -77,7 +80,10 @@ class MFCC_Dataset(Dataset):
         self.labels_list =sorted(list(self.label_counter.keys()))
         self.device_list = sorted(list(self.device_counter.keys()))
         self.class_num = len(self.labels_list)
-        self.fs = 16000
+        if self.undersample:
+            self.fs = self.sampling_rate
+        else: 
+            self.fs = 44100
         self.ns = 10
         
     def __len__(self):
