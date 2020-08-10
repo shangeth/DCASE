@@ -5,7 +5,7 @@ TRAINING_CONFIG = {
     'batch_size' : 128, 
     'augment' : True,
     'val_split_ratio' : 0.1,
-    'data_dir' : 'data/audio',
+    'data_dir' : 'data/audio_16k',
     'model_type' : '2d',
     'lr' : 1e-3, 
     'epochs' : 10,

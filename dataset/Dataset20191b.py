@@ -66,8 +66,8 @@ class RawWaveDataset(Dataset):
 
         file_name, label, device = self.wav_files[idx]
         waveform, sample_rate = torchaudio.load(file_name)
-        if self.undersample:
-            waveform = torchaudio.transforms.Resample(sample_rate, self.sampling_rate)(waveform)
+        # if self.undersample:
+            # waveform = torchaudio.transforms.Resample(sample_rate, self.sampling_rate)(waveform)
         waveform = waveform[:, :self.ns*self.fs]
         return waveform, self.labels_list.index(label), self.device_list.index(device)
 

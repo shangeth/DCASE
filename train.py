@@ -1,6 +1,5 @@
 from dataset.Dataset20191b import Spectral_Dataset, RawWaveDataset
 from dataset.utils import get_dataloader
-from model.spectral import CNN_MFCC_2D
 import torch
 import torch.nn as nn
 import time

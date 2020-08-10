@@ -33,7 +33,7 @@ class Residual1DBlock(nn.Module):
         out += residual
         return out
 
-class CNN1d_1s(nn.Module):
+class CNN1d_1s44k(nn.Module):
     def __init__(self, n_classes, fs, ns):
         super(CNN1d_1s, self).__init__()
         self.fs = fs
@@ -75,7 +75,7 @@ class CNN1d_1s(nn.Module):
         print('\n')
 
 
-class CNN1D(nn.Module):
+class CNN1D44k(nn.Module):
     def __init__(self, classes_num, fs, ns):
         super(CNN1D, self).__init__()
         self.fs = fs
