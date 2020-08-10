@@ -149,21 +149,21 @@ Estimated Total Size (MB): 54.53
 
 
 # Results
-| Feature | Model            | Model Size    | Training Time (200) Epoch | Acc    | Precision | Recall | f1   |
-|---------|------------------|---------------|---------------------------|--------|-----------|--------|------|
-| Raw     | 1DCNN            |               |                           |        |           |        |      |
-|         | 1DCNN_1s         |               |                           |        |           |        |      |
-|         | CNN-RNN          |               |                           |        |           |        |      |
-|         | SincNet          |               |                           |        |           |        |      |
-|         | PASE             |               |                           |        |           |        |      |
-|         | PASE(Pretrained) |               |                           |        |           |        |      |
-|         |                  |               |                           |        |           |        |      |
-| MFCC    | 1DCNN            | 191670 / 7.73 |                           | 0.8582 | 0.86      | 0.86   | 0.86 |
-|         | 2DCNN            |               |                           | 0.8556 | 0.86      | 0.86   | 0.85 |
-|         | CNN-RNN          |               |                           |        |           |        |      |
-|         | Pretrained CNN   |               |                           |        |           |        |      |
-|         |                  |               |                           |        |           |        |      |
-| Mel     | 1DCNN            | 96350 / 0.69  |                           |        |           |        |      |
-|         | 2DCNN            |               |                           | 0.7682 | 0.78      | 0.78   | 0.78 |
-|         | CNN-RNN          |               |                           |        |           |        |      |
-|         | Pretrained CNN   |               |                           |        |           |        |      |
+| Feature | Model            | Model Size    | Training Time (200) Epoch | Acc               | Precision | Recall | f1   |
+|---------|------------------|---------------|---------------------------|-------------------|-----------|--------|------|
+| Raw     | 1DCNN            |               |                           |                   |           |        |      |
+|         | 1DCNN_1s         |               |                           |                   |           |        |      |
+|         | CNN-RNN          |               |                           |                   |           |        |      |
+|         | SincNet          |               |                           |                   |           |        |      |
+|         | PASE             |               |                           |                   |           |        |      |
+|         | PASE(Pretrained) |               |                           |                   |           |        |      |
+|         |                  |               |                           |                   |           |        |      |
+| MFCC    | 1DCNN            | 191670 / 7.73 |                           | 0.8582            | 0.86      | 0.86   | 0.86 |
+|         | 2DCNN            |               |                           | 0.8556            | 0.86      | 0.86   | 0.85 |
+|         | CNN-RNN          |               |                           |                   |           |        |      |
+|         | Pretrained CNN   |               |                           |                   |           |        |      |
+|         |                  |               |                           |                   |           |        |      |
+| Mel     | 1DCNN            | 96350 / 0.69  |                           | 0.6450(86 epochs) |           |        |      |
+|         | 2DCNN            |               |                           | 0.7682            | 0.78      | 0.78   | 0.78 |
+|         | CNN-RNN          |               |                           |                   |           |        |      |
+|         | Pretrained CNN   |               |                           |                   |           |        |      |
