@@ -10,11 +10,13 @@ MODEL_LOOKUP = {
 
     'mel' : {
         '1d' : CNN_MEL_1D,
-        '2d' : CNN_MEL_2D
+        '2d' : CNN_MEL_2D,
+        'vgg': VGG
             },
     'mfcc' : {
         '1d' : CNN_MFCC_2D,
-        '2d' : CNN_MFCC_2D
+        '2d' : CNN_MFCC_2D,
+        'vgg': VGG
             }
 }
 

@@ -10,7 +10,7 @@ import random
 from dataset.data_aug import time_mask, time_warp, freq_mask
 from audiomentations import Compose, AddGaussianNoise, TimeStretch, PitchShift, Shift
 from config import TRAINING_CONFIG
-
+from torchvision import transforms
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # https://pypi.org/project/audiomentations/
@@ -187,6 +187,32 @@ class ApplyRawAug(Dataset):
                              sample_rate=self.sample_rate)
         waveform = torch.from_numpy(waveform).reshape(1, -1)
         return waveform, label, device
+
+    def __len__(self):
+        return len(self.dataset)
+
+
+
+
+class ApplySpectralPretrainedAug(Dataset):
+
+    def __init__(self, dataset):
+        self.dataset = dataset
+        self.transform = transforms.Compose([
+                        transforms.ToPILImage(),
+                        transforms.RandomResizedCrop(224),
+                        transforms.ToTensor(),
+                        ])
+
+    def __getitem__(self, idx):
+        waveform, label, device = self.dataset[idx]
+        img1 = self.transform(waveform)
+        img2 = self.transform(waveform)
+        img3 = self.transform(waveform)
+
+        img = torch.cat([img1, img2, img3])
+        
+        return img, label, device
 
     def __len__(self):
         return len(self.dataset)

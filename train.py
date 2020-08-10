@@ -31,6 +31,7 @@ if __name__ == "__main__":
     augment_bool = TRAINING_CONFIG['augment']
     val_split_ratio = TRAINING_CONFIG['val_split_ratio']
     model_type = TRAINING_CONFIG['model_type']
+    pretrained = TRAINING_CONFIG['pretrained']
     lr = TRAINING_CONFIG['lr']
     epochs = TRAINING_CONFIG['epochs']
     log_path = TRAINING_CONFIG['log_path']
@@ -46,10 +47,14 @@ if __name__ == "__main__":
         spectral = True
     dataset.print_stats()
 
+    print(f'Data Shape = {dataset[0][0].shape}')
+
     fs = dataset.fs
     ns = dataset.ns
     trainloader, valloader = get_dataloader(dataset, train_bs=batch_size, valid_bs=batch_size, 
-                                            val_ratio=val_split_ratio, augment=augment_bool, spectral=spectral)
+                                            val_ratio=val_split_ratio, augment=augment_bool, spectral=spectral,pretrained=pretrained)
+
+    # print(f'Dataloader shape = {next(iter(trainloader))[0].shape}')
 
     model_class = MODEL_LOOKUP[audio_features][model_type]
     model = model_class(dataset.class_num, fs, ns)
