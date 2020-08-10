@@ -141,3 +141,29 @@ Estimated Total Size (MB): 54.53
 
   9%|▉         | 5/54 [00:14<02:26,  2.99s/it]
 ```
+
+## 4. Test 
+
+## 5. Inference
+
+
+
+# Results
+| Feature | Model            | Model Size | Val Acc |   |
+|---------|------------------|------------|---------|---|
+| Raw     | 1DCNN            |            |         |   |
+|         | 1DCNN_1s         |            |         |   |
+|         | CNN-RNN          |            |         |   |
+|         | SincNet          |            |         |   |
+|         | PASE             |            |         |   |
+|         | PASE(Pretrained) |            |         |   |
+|         |                  |            |         |   |
+| MFCC    | 1DCNN            |            |         |   |
+|         | 2DCNN            |            |         |   |
+|         | CNN-RNN          |            |         |   |
+|         | Pretrained CNN   |            |         |   |
+|         |                  |            |         |   |
+| Mel     | 1DCNN            |            |         |   |
+|         | 2DCNN            |            |         |   |
+|         | CNN-RNN          |            |         |   |
+|         | Pretrained CNN   |            |         |   |
