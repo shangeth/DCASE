@@ -149,21 +149,21 @@ Estimated Total Size (MB): 54.53
 
 
 # Results
-| Feature | Model            | Model Size | Val Acc |   |
-|---------|------------------|------------|---------|---|
-| Raw     | 1DCNN            |            |         |   |
-|         | 1DCNN_1s         |            |         |   |
-|         | CNN-RNN          |            |         |   |
-|         | SincNet          |            |         |   |
-|         | PASE             |            |         |   |
-|         | PASE(Pretrained) |            |         |   |
-|         |                  |            |         |   |
-| MFCC    | 1DCNN            |            |         |   |
-|         | 2DCNN            |            |         |   |
-|         | CNN-RNN          |            |         |   |
-|         | Pretrained CNN   |            |         |   |
-|         |                  |            |         |   |
-| Mel     | 1DCNN            |            |         |   |
-|         | 2DCNN            |            |         |   |
-|         | CNN-RNN          |            |         |   |
-|         | Pretrained CNN   |            |         |   |
+| Feature | Model            | Model Size | Training Time (200) Epoch | Acc | Precision | Recall | f1 |
+|---------|------------------|------------|---------------------------|-----|-----------|--------|----|
+| Raw     | 1DCNN            |            |                           |     |           |        |    |
+|         | 1DCNN_1s         |            |                           |     |           |        |    |
+|         | CNN-RNN          |            |                           |     |           |        |    |
+|         | SincNet          |            |                           |     |           |        |    |
+|         | PASE             |            |                           |     |           |        |    |
+|         | PASE(Pretrained) |            |                           |     |           |        |    |
+|         |                  |            |                           |     |           |        |    |
+| MFCC    | 1DCNN            |            |                           |     |           |        |    |
+|         | 2DCNN            |            |                           |     |           |        |    |
+|         | CNN-RNN          |            |                           |     |           |        |    |
+|         | Pretrained CNN   |            |                           |     |           |        |    |
+|         |                  |            |                           |     |           |        |    |
+| Mel     | 1DCNN            |            |                           |     |           |        |    |
+|         | 2DCNN            |            |                           |     |           |        |    |
+|         | CNN-RNN          |            |                           |     |           |        |    |
+|         | Pretrained CNN   |            |                           |     |           |        |    |
