@@ -196,13 +196,24 @@ class ApplyRawAug(Dataset):
 
 class ApplySpectralPretrainedAug(Dataset):
 
-    def __init__(self, dataset):
+    def __init__(self, dataset, test=False):
         self.dataset = dataset
-        self.transform = transforms.Compose([
+        
+        if test:
+            self.transform = transforms.Compose([
                         transforms.ToPILImage(),
-                        transforms.RandomResizedCrop(224),
+                        transforms.Resize(224),
+                        transforms.CenterCrop(224),
                         transforms.ToTensor(),
                         ])
+        else:
+            self.transform = transforms.Compose([
+                        transforms.ToPILImage(),
+                        transforms.Resize(224),
+                        transforms.RandomCrop(224),
+                        transforms.ToTensor(),
+                        ])
+        
 
     def __getitem__(self, idx):
         waveform, label, device = self.dataset[idx]

@@ -13,7 +13,7 @@ def get_dataloader(dataset, train_bs=50, valid_bs=50, val_ratio=0.1, augment=Tru
         train_set = ApplySpectralAug(train_set)
     if pretrained:
         train_set = ApplySpectralPretrainedAug(train_set)
-        val_set = ApplySpectralPretrainedAug(val_set)
+        val_set = ApplySpectralPretrainedAug(val_set, test=True)
     if augment and not spectral:
         train_set = ApplyRawAug(train_set)
     trainloader = data.DataLoader(train_set, batch_size=train_bs, shuffle=True)
