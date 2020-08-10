@@ -1,4 +1,3 @@
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -53,8 +52,7 @@ class CNN1d_1s(nn.Module):
                                     nn.MaxPool1d(2, 2)
                      )
         self.avg_pool = nn.AvgPool1d(10, 10, count_include_pad=False)
-        # self.sinc_net.out_dim = 640
-        self.sinc_net.out_dim = 192
+        self.sinc_net.out_dim = 640
         self.fc_net = nn.Sequential(nn.Linear(self.sinc_net.out_dim, 128),
                             nn.LeakyReLU(0.3),
                             nn.Dropout(0.5),
@@ -91,10 +89,10 @@ class CNN1D(nn.Module):
                                                 Conv1DBlock(32, 32),
                                                 Conv1DBlock(32, 32))
 
-        self.classifier = nn.Sequential(nn.Linear(256, 128),
+        self.classifier = nn.Sequential(nn.Linear(832,256),
                                         nn.ReLU(),
                                         nn.Dropout(0.5),
-                                        nn.Linear(128, classes_num))
+                                        nn.Linear(256, classes_num))
     def forward(self, input):
         features = self.feature_extractor(input)
         features = features.view(features.size(0), -1)
@@ -107,7 +105,7 @@ class CNN1D(nn.Module):
         print('\n')
 
 if __name__ == "__main__":
-    test_input = torch.randn(1, 1, 160000)
-    model = CNN1d_1s(3, 16000, 10)
+    test_input = torch.randn(5, 1, 441000)
+    model = CNN1D(3)
     y_hat = model(test_input)
     print(y_hat.shape)

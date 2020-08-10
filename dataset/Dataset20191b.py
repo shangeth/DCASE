@@ -8,12 +8,15 @@ from collections import Counter
 import numpy
 import random
 from dataset.data_aug import time_mask, time_warp, freq_mask
+from audiomentations import Compose, AddGaussianNoise, TimeStretch, PitchShift, Shift
+from config import TRAINING_CONFIG
+
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # https://pypi.org/project/audiomentations/
 # https://github.com/makcedward/nlpaug
 class RawWaveDataset(Dataset):
-    def __init__(self, root_dir, test=False, undersample=False, sampling_rate=16000):
+    def __init__(self, root_dir, test=False, undersample=True, sampling_rate=16000):
         self.root_dir = root_dir
         self.test = test
         self.wav_files, self.label_counter, self.device_counter, self.city_counter = self.get_wav_files(self.root_dir)
@@ -142,7 +145,7 @@ class Spectral_Dataset(Dataset):
         print(f'Device =\n{self.device_counter}')
         print(f'Cities =\n{self.city_counter}\n')
 
-class ApplyAug(Dataset):
+class ApplySpectralAug(Dataset):
 
     def __init__(self, dataset):
         self.dataset = dataset
@@ -159,6 +162,30 @@ class ApplyAug(Dataset):
         if random.random() >= 0.5:
             waveform = time_warp(waveform)
         
+        return waveform, label, device
+
+    def __len__(self):
+        return len(self.dataset)
+
+
+class ApplyRawAug(Dataset):
+    # https://github.com/iver56/audiomentations/blob/master/audiomentations/augmentations/transforms.py
+    def __init__(self, dataset):
+        self.dataset = dataset
+        self.sample_rate = TRAINING_CONFIG['audio_sample_rate']
+        self.augmenter = Compose([
+                            AddGaussianNoise(min_amplitude=0.001, max_amplitude=0.015, p=0.5),
+                            TimeStretch(min_rate=0.8, max_rate=1.25, p=0.5),
+                            PitchShift(min_semitones=-4, max_semitones=4, p=0.5),
+                            Shift(min_fraction=-0.5, max_fraction=0.5, p=0.5),
+                                ])
+
+    def __getitem__(self, idx):
+        waveform, label, device = self.dataset[idx]
+        waveform = waveform.numpy().reshape(-1,)
+        waveform = self.augmenter(samples=waveform, 
+                             sample_rate=self.sample_rate)
+        waveform = torch.from_numpy(waveform).reshape(1, -1)
         return waveform, label, device
 
     def __len__(self):

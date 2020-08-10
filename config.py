@@ -1,11 +1,11 @@
 import pprint
 TRAINING_CONFIG = {
-    'audio_features' : 'mfcc',
+    'audio_features' : 'raw',
     'audio_sample_rate' : 16000,
     'batch_size' : 128, 
     'augment' : True,
     'val_split_ratio' : 0.1,
-    'data_dir' : 'data/mfcc',
+    'data_dir' : 'data/audio',
     'model_type' : '2d',
     'lr' : 1e-3, 
     'epochs' : 10,
