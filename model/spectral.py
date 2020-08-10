@@ -125,3 +125,28 @@ class VGG(nn.Module):
         print('Model Summary')
         summary(self, input_size=(3, 224, 224))
         print('\n')
+
+class SqueezeNet(nn.Module):
+    def __init__(self, class_num, fs, ns):
+        super(SqueezeNet, self).__init__()
+        self.model = models.squeezenet1_1(pretrained=True)
+        for param in self.model.parameters():
+            param.requires_grad = False
+        
+        for param in self.model.features[12].parameters():
+            param.requires_grad = True
+        
+        for param in self.model.classifier.parameters():
+            param.requires_grad = True
+
+        self.model.classifier[1] = nn.Conv2d(512, class_num, kernel_size=(1, 1), stride=(1, 1))
+
+  
+    def forward(self, x):
+        out = self.model(x)
+        return out
+
+    def print_summary(self):
+        print('Model Summary')
+        summary(self, input_size=(3, 224, 224))
+        print('\n')
