@@ -1,6 +1,6 @@
 # DCASE
 
-## 1.Download Dataset 
+## 1. Download Dataset 
 ## 2. Change config.py
 ```
 python model/model_lookup.py
