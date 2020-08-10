@@ -1,6 +1,13 @@
 # DCASE
 
 ## 1. Download Dataset 
+Download and extract [DCASE 2019 task 1b dataset](https://zenodo.org/record/2589332), task 1a can also be used without modifying the code.
+
+## 2. Save Features(Raw/mfcc/mel,...)
+```
+python features/save_features.py
+```
+
 ## 2. Change config.py
 ```
 python model/model_lookup.py
