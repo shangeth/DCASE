@@ -145,6 +145,46 @@ class Spectral_Dataset(Dataset):
         print(f'Device =\n{self.device_counter}')
         print(f'Cities =\n{self.city_counter}\n')
 
+
+class Timit_Dataset(Dataset):
+    def __init__(self, root_dir, test=False):
+        self.root_dir = root_dir
+        self.test = test
+        self.files = os.listdir(self.root_dir)
+        
+        
+    def __len__(self):
+        return len(self.wav_files)
+
+    def __getitem__(self, idx):
+        if torch.is_tensor(idx):
+            idx = idx.tolist()
+        
+        file = self.files[idx]
+        waveform = torch.from_numpy(np.load(file))
+        label = float('.'.join(file.split('_')[-1].split('.')[:-1]))
+
+        if random.random() >= 0.5:
+                waveform = time_mask(waveform, num_masks=2)
+            
+        if random.random() >= 0.5:
+            waveform = freq_mask(waveform, num_masks=2)
+
+        if random.random() >= 0.5:
+            waveform = time_warp(waveform)
+
+
+        return waveform, label
+
+    def print_stats(self):
+        print('\nDataset Statistics')
+        print('-'*10)
+        print(f'Length of Dataset = {len(self.wav_files)}')
+        print(f'Labels =\n{self.label_counter}')
+        print(f'Device =\n{self.device_counter}')
+        print(f'Cities =\n{self.city_counter}\n')
+
+
 class ApplySpectralAug(Dataset):
 
     def __init__(self, dataset):

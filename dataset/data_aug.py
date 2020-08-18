@@ -427,7 +427,7 @@ def time_warp(spec, W=5):
     warped_spectro, dense_flows = sparse_image_warp(spec, src_pts, dest_pts)
     return warped_spectro.squeeze(3)
 
-def freq_mask(spec, F=30, num_masks=1, replace_with_zero=False):
+def freq_mask(spec, F=10, num_masks=1, replace_with_zero=False):
     cloned = spec.clone()
     num_mel_channels = cloned.shape[1]
     
