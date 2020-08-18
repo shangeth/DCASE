@@ -7,7 +7,7 @@ import torch
 import matplotlib.pyplot as plt
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 import gc
-from pytorch_lightning.metrics.regression import MAE, MSE
+from pytorch_lightning.metrics.regression import MAE, MSE, RMSE
 
 def train(model, trainloader, valloader, criterion, optimizer, epochs, logger, tensorboard_path, log_path, save_model_file):
     writer = SummaryWriter(f'{tensorboard_path}{datetime.now().strftime("%m-%d-%Y_%H:%M:%S")}')
@@ -132,7 +132,34 @@ def test(model, loader, logger, log_path, save_model_file):
 
     mse = MSE()(prediction, label)
     mae = MAE()(prediction, label)
+    rmse = RMSE(prediction, label)
 
-    print(f'\n\nTest Dataset :\tMSE : {mse}\tMAE : {mae}')
-    logger.info(f'\n\nTest Dataset :\tMSE : {mse}\tMAE : {mae}')
+    print(f'\n\nTest Dataset :\tMSE : {mse}\tMAE : {mae}\tRMSE: {rmse}')
+    logger.info(f'\n\nTest Dataset :\tMSE : {mse}\tMAE : {mae}\tRMSE: {rmse}')
+
+
+def inference(model, loader, label_name, logger, log_path, save_model_file):
+    m, M = (144.78, 203.2)
+    model.load_state_dict(torch.load(log_path+save_model_file))
+    true_labels = []
+    predictions = []
+    model.eval() # evaluation mode
+    with torch.no_grad(): # no gradients/back propagation for evaluation
+        for batch in loader:
+            batch_x, batch_y = batch
+            batch_x, batch_y = batch_x.float().to(device), batch_y.float().to(device)
+            y_hat = model(batch_x) # forward pass throough model
+            
+            predictions += y_hat.cpu().detach().view(-1)
+            true_labels += batch_y.cpu().detach().view(-1)
+
+    prediction = torch.Tensor(predictions) * (M-m) + m
+    label = torch.Tensor(true_labels) * (M-m) + m
+
+    mse = MSE()(prediction, label)
+    mae = MAE()(prediction, label)
+    rmse = RMSE()(prediction, label)
+
+    print(f'\n{label_name} Dataset :\tMSE : {mse}\tMAE : {mae}\tRMSE: {rmse}')
+    logger.info(f'\n{label_name} Dataset :\tMSE : {mse}\tMAE : {mae}\tRMSE: {rmse}')
 

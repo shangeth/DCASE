@@ -91,6 +91,10 @@ if __name__ == "__main__":
     # dcase20191b_trainer.test(model, valloader, dataset, logger, log_path, save_model_file)
     timit_trainer.train(model, trainloader, valloader, criterion, optimizer, 
                               epochs, logger, tensorboard_path, log_path, save_model_file)
-    timit_trainer.test(model, testloader, logger, log_path, save_model_file)
+    # timit_trainer.test(model, testloader, logger, log_path, save_model_file)
+
+    timit_trainer.inference(model, trainloader, 'Train', logger, log_path, save_model_file)
+    timit_trainer.inference(model, valloader, 'Val', logger, log_path, save_model_file)
+    timit_trainer.inference(model, testloader, 'Test', logger, log_path, save_model_file)
 
 
