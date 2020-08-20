@@ -7,7 +7,8 @@ MODEL_LOOKUP = {
     'regression':{
         'mel' : {
             '1d' : CNN_Regression_1D,
-            '2d' : CNN_Regression_2D
+            '2d' : CNN_Regression_2D,
+            'lstm' : LSTM_Regression
         }
     },
     'classification' : {

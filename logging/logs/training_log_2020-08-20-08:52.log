@@ -1,0 +1,94 @@
+20-08-2020 08:53:05: Validation loss reduced from inf to  0.21241550892591476, saving model...
+20-08-2020 08:53:05: Epoch : 01	Loss : 0.2851	MAE : 13.4090	Val Loss : 0.2124	Val MAE : 10.6999	Time : 11.60 s
+20-08-2020 08:53:17: Validation loss reduced from 0.21241550892591476 to  0.14942095428705215, saving model...
+20-08-2020 08:53:17: Epoch : 02	Loss : 0.1882	MAE : 8.7891	Val Loss : 0.1494	Val MAE : 7.2225	Time : 11.56 s
+20-08-2020 08:53:28: Epoch : 03	Loss : 0.1702	MAE : 7.9313	Val Loss : 0.1601	Val MAE : 7.9756	Time : 11.62 s
+20-08-2020 08:53:40: Epoch : 04	Loss : 0.1550	MAE : 7.2400	Val Loss : 0.1516	Val MAE : 7.6313	Time : 11.73 s
+20-08-2020 08:53:52: Validation loss reduced from 0.14942095428705215 to  0.14276015013456345, saving model...
+20-08-2020 08:53:52: Epoch : 05	Loss : 0.1495	MAE : 6.9728	Val Loss : 0.1428	Val MAE : 7.0710	Time : 11.62 s
+20-08-2020 08:54:03: Epoch : 06	Loss : 0.1457	MAE : 6.7966	Val Loss : 0.1466	Val MAE : 7.1445	Time : 11.65 s
+20-08-2020 08:54:15: Validation loss reduced from 0.14276015013456345 to  0.13026346638798714, saving model...
+20-08-2020 08:54:15: Epoch : 07	Loss : 0.1425	MAE : 6.6200	Val Loss : 0.1303	Val MAE : 6.2363	Time : 11.82 s
+20-08-2020 08:54:27: Epoch : 08	Loss : 0.1414	MAE : 6.5930	Val Loss : 0.1391	Val MAE : 6.6186	Time : 11.59 s
+20-08-2020 08:54:38: Validation loss reduced from 0.13026346638798714 to  0.12630810216069221, saving model...
+20-08-2020 08:54:38: Epoch : 09	Loss : 0.1407	MAE : 6.5461	Val Loss : 0.1263	Val MAE : 6.0686	Time : 11.64 s
+20-08-2020 08:54:50: Epoch : 10	Loss : 0.1393	MAE : 6.4925	Val Loss : 0.1355	Val MAE : 6.4908	Time : 11.59 s
+20-08-2020 08:55:02: Epoch : 11	Loss : 0.1379	MAE : 6.4093	Val Loss : 0.1326	Val MAE : 6.3799	Time : 11.73 s
+20-08-2020 08:55:13: Epoch : 12	Loss : 0.1372	MAE : 6.3790	Val Loss : 0.1372	Val MAE : 6.5679	Time : 11.71 s
+20-08-2020 08:55:25: Epoch : 13	Loss : 0.1372	MAE : 6.3762	Val Loss : 0.1300	Val MAE : 6.2779	Time : 11.69 s
+20-08-2020 08:55:37: Epoch : 14	Loss : 0.1363	MAE : 6.3346	Val Loss : 0.1301	Val MAE : 6.2586	Time : 11.82 s
+20-08-2020 08:55:49: Validation loss reduced from 0.12630810216069221 to  0.12583190202713013, saving model...
+20-08-2020 08:55:49: Epoch : 15	Loss : 0.1352	MAE : 6.2959	Val Loss : 0.1258	Val MAE : 5.9835	Time : 11.66 s
+20-08-2020 08:56:00: Epoch : 16	Loss : 0.1356	MAE : 6.2971	Val Loss : 0.1283	Val MAE : 6.2421	Time : 11.66 s
+20-08-2020 08:56:12: Epoch : 17	Loss : 0.1341	MAE : 6.2508	Val Loss : 0.1282	Val MAE : 6.3793	Time : 11.70 s
+20-08-2020 08:56:24: Epoch : 18	Loss : 0.1337	MAE : 6.2090	Val Loss : 0.1335	Val MAE : 6.5228	Time : 11.70 s
+20-08-2020 08:56:35: Epoch : 19	Loss : 0.1336	MAE : 6.2065	Val Loss : 0.1296	Val MAE : 6.2304	Time : 11.69 s
+20-08-2020 08:56:47: Epoch : 20	Loss : 0.1336	MAE : 6.2350	Val Loss : 0.1287	Val MAE : 6.2275	Time : 11.75 s
+20-08-2020 08:56:59: Epoch : 21	Loss : 0.1341	MAE : 6.2342	Val Loss : 0.1279	Val MAE : 6.1541	Time : 11.76 s
+20-08-2020 08:57:11: Validation loss reduced from 0.12583190202713013 to  0.12511111795902252, saving model...
+20-08-2020 08:57:11: Epoch : 22	Loss : 0.1329	MAE : 6.2049	Val Loss : 0.1251	Val MAE : 6.2990	Time : 11.87 s
+20-08-2020 08:57:23: Epoch : 23	Loss : 0.1331	MAE : 6.1932	Val Loss : 0.1335	Val MAE : 6.4942	Time : 11.87 s
+20-08-2020 08:57:34: Epoch : 24	Loss : 0.1329	MAE : 6.1531	Val Loss : 0.1339	Val MAE : 6.7074	Time : 11.90 s
+20-08-2020 08:57:46: Epoch : 25	Loss : 0.1325	MAE : 6.1675	Val Loss : 0.1333	Val MAE : 6.5730	Time : 11.80 s
+20-08-2020 08:57:58: Epoch : 26	Loss : 0.1327	MAE : 6.1884	Val Loss : 0.1330	Val MAE : 6.5799	Time : 11.72 s
+20-08-2020 08:58:10: Epoch : 27	Loss : 0.1320	MAE : 6.1426	Val Loss : 0.1316	Val MAE : 6.4569	Time : 11.78 s
+20-08-2020 08:58:21: Validation loss reduced from 0.12511111795902252 to  0.1225842721760273, saving model...
+20-08-2020 08:58:21: Epoch : 28	Loss : 0.1320	MAE : 6.1380	Val Loss : 0.1226	Val MAE : 6.0324	Time : 11.77 s
+20-08-2020 08:58:33: Epoch : 29	Loss : 0.1318	MAE : 6.1431	Val Loss : 0.1304	Val MAE : 6.1479	Time : 11.74 s
+20-08-2020 08:58:45: Epoch : 30	Loss : 0.1324	MAE : 6.1626	Val Loss : 0.1349	Val MAE : 6.6474	Time : 11.74 s
+20-08-2020 08:58:57: Epoch : 31	Loss : 0.1318	MAE : 6.1521	Val Loss : 0.1348	Val MAE : 6.7179	Time : 11.69 s
+20-08-2020 08:59:08: Validation loss reduced from 0.1225842721760273 to  0.12214076519012451, saving model...
+20-08-2020 08:59:08: Epoch : 32	Loss : 0.1313	MAE : 6.1267	Val Loss : 0.1221	Val MAE : 5.8566	Time : 11.74 s
+20-08-2020 08:59:20: Epoch : 33	Loss : 0.1303	MAE : 6.0689	Val Loss : 0.1244	Val MAE : 6.1376	Time : 11.59 s
+20-08-2020 08:59:32: Epoch : 34	Loss : 0.1316	MAE : 6.1157	Val Loss : 0.1263	Val MAE : 6.1223	Time : 11.64 s
+20-08-2020 08:59:43: Epoch : 35	Loss : 0.1301	MAE : 6.0671	Val Loss : 0.1408	Val MAE : 6.9089	Time : 11.82 s
+20-08-2020 08:59:55: Epoch : 36	Loss : 0.1305	MAE : 6.0765	Val Loss : 0.1281	Val MAE : 6.2933	Time : 11.69 s
+20-08-2020 09:00:07: Epoch : 37	Loss : 0.1313	MAE : 6.1231	Val Loss : 0.1277	Val MAE : 6.0689	Time : 11.74 s
+20-08-2020 09:00:19: Epoch : 38	Loss : 0.1306	MAE : 6.0833	Val Loss : 0.1249	Val MAE : 6.1470	Time : 11.65 s
+20-08-2020 09:00:30: Epoch : 39	Loss : 0.1305	MAE : 6.0786	Val Loss : 0.1237	Val MAE : 5.8450	Time : 11.60 s
+20-08-2020 09:00:42: Epoch : 40	Loss : 0.1308	MAE : 6.1034	Val Loss : 0.1315	Val MAE : 6.2472	Time : 11.73 s
+20-08-2020 09:00:54: Epoch : 41	Loss : 0.1302	MAE : 6.0663	Val Loss : 0.1253	Val MAE : 6.1426	Time : 11.65 s
+20-08-2020 09:01:05: Epoch : 42	Loss : 0.1303	MAE : 6.0826	Val Loss : 0.1375	Val MAE : 6.8677	Time : 11.74 s
+20-08-2020 09:01:17: Epoch : 43	Loss : 0.1303	MAE : 6.0635	Val Loss : 0.1310	Val MAE : 6.5285	Time : 11.49 s
+20-08-2020 09:01:28: Epoch : 44	Loss : 0.1300	MAE : 6.0587	Val Loss : 0.1260	Val MAE : 6.2104	Time : 11.39 s
+20-08-2020 09:01:40: Epoch : 45	Loss : 0.1290	MAE : 6.0071	Val Loss : 0.1269	Val MAE : 6.2387	Time : 11.59 s
+20-08-2020 09:01:52: Epoch : 46	Loss : 0.1292	MAE : 6.0046	Val Loss : 0.1392	Val MAE : 6.6023	Time : 11.78 s
+20-08-2020 09:02:03: Epoch : 47	Loss : 0.1298	MAE : 6.0573	Val Loss : 0.1295	Val MAE : 6.2970	Time : 11.86 s
+20-08-2020 09:02:15: Validation loss reduced from 0.12214076519012451 to  0.11935055628418922, saving model...
+20-08-2020 09:02:15: Epoch : 48	Loss : 0.1297	MAE : 6.0441	Val Loss : 0.1194	Val MAE : 5.6795	Time : 11.81 s
+20-08-2020 09:02:27: Epoch : 49	Loss : 0.1296	MAE : 6.0473	Val Loss : 0.1330	Val MAE : 6.6745	Time : 11.65 s
+20-08-2020 09:02:39: Epoch : 50	Loss : 0.1291	MAE : 6.0093	Val Loss : 0.1331	Val MAE : 6.5783	Time : 11.74 s
+20-08-2020 09:02:50: Validation loss reduced from 0.11935055628418922 to  0.11852825805544853, saving model...
+20-08-2020 09:02:50: Epoch : 51	Loss : 0.1293	MAE : 6.0343	Val Loss : 0.1185	Val MAE : 5.6450	Time : 11.65 s
+20-08-2020 09:03:02: Epoch : 52	Loss : 0.1298	MAE : 6.0399	Val Loss : 0.1247	Val MAE : 6.0727	Time : 11.66 s
+20-08-2020 09:03:14: Epoch : 53	Loss : 0.1289	MAE : 6.0078	Val Loss : 0.1306	Val MAE : 6.4064	Time : 11.74 s
+20-08-2020 09:03:25: Epoch : 54	Loss : 0.1286	MAE : 5.9806	Val Loss : 0.1325	Val MAE : 6.3406	Time : 11.70 s
+20-08-2020 09:03:37: Epoch : 55	Loss : 0.1289	MAE : 6.0035	Val Loss : 0.1275	Val MAE : 6.2656	Time : 11.80 s
+20-08-2020 09:03:49: Epoch : 56	Loss : 0.1286	MAE : 5.9983	Val Loss : 0.1203	Val MAE : 5.7600	Time : 11.76 s
+20-08-2020 09:04:01: Epoch : 57	Loss : 0.1286	MAE : 5.9967	Val Loss : 0.1277	Val MAE : 6.2648	Time : 11.71 s
+20-08-2020 09:04:12: Epoch : 58	Loss : 0.1279	MAE : 5.9522	Val Loss : 0.1234	Val MAE : 5.8720	Time : 11.76 s
+20-08-2020 09:04:24: Epoch : 59	Loss : 0.1285	MAE : 6.0028	Val Loss : 0.1319	Val MAE : 6.5061	Time : 11.42 s
+20-08-2020 09:04:35: Epoch : 60	Loss : 0.1288	MAE : 6.0039	Val Loss : 0.1247	Val MAE : 5.8626	Time : 11.55 s
+20-08-2020 09:04:47: Epoch : 61	Loss : 0.1287	MAE : 6.0002	Val Loss : 0.1345	Val MAE : 6.7373	Time : 11.62 s
+20-08-2020 09:04:59: Epoch : 62	Loss : 0.1275	MAE : 5.9436	Val Loss : 0.1358	Val MAE : 6.8867	Time : 11.73 s
+20-08-2020 09:05:10: Epoch : 63	Loss : 0.1288	MAE : 6.0050	Val Loss : 0.1252	Val MAE : 6.1359	Time : 11.72 s
+20-08-2020 09:05:22: Epoch : 64	Loss : 0.1283	MAE : 5.9834	Val Loss : 0.1215	Val MAE : 5.7192	Time : 11.70 s
+20-08-2020 09:05:34: Epoch : 65	Loss : 0.1281	MAE : 5.9729	Val Loss : 0.1283	Val MAE : 6.1608	Time : 11.84 s
+20-08-2020 09:05:46: Epoch : 66	Loss : 0.1280	MAE : 5.9883	Val Loss : 0.1267	Val MAE : 6.1263	Time : 11.72 s
+20-08-2020 09:05:57: Epoch : 67	Loss : 0.1276	MAE : 5.9471	Val Loss : 0.1300	Val MAE : 6.3929	Time : 11.76 s
+20-08-2020 09:06:09: Epoch : 68	Loss : 0.1284	MAE : 5.9623	Val Loss : 0.1219	Val MAE : 5.9437	Time : 11.70 s
+20-08-2020 09:06:21: Epoch : 69	Loss : 0.1272	MAE : 5.9563	Val Loss : 0.1196	Val MAE : 5.8152	Time : 11.60 s
+20-08-2020 09:06:32: Epoch : 70	Loss : 0.1281	MAE : 5.9743	Val Loss : 0.1310	Val MAE : 6.4106	Time : 11.67 s
+20-08-2020 09:06:44: Epoch : 71	Loss : 0.1274	MAE : 5.9650	Val Loss : 0.1272	Val MAE : 6.2976	Time : 11.80 s
+20-08-2020 09:06:56: Epoch : 72	Loss : 0.1278	MAE : 5.9577	Val Loss : 0.1252	Val MAE : 5.9689	Time : 11.68 s
+20-08-2020 09:07:08: Epoch : 73	Loss : 0.1272	MAE : 5.9286	Val Loss : 0.1231	Val MAE : 6.0600	Time : 11.72 s
+20-08-2020 09:07:19: Epoch : 74	Loss : 0.1277	MAE : 5.9622	Val Loss : 0.1239	Val MAE : 6.0655	Time : 11.72 s
+20-08-2020 09:07:31: Epoch : 75	Loss : 0.1269	MAE : 5.9125	Val Loss : 0.1262	Val MAE : 5.8833	Time : 11.77 s
+20-08-2020 09:07:43: Epoch : 76	Loss : 0.1274	MAE : 5.9347	Val Loss : 0.1237	Val MAE : 5.8469	Time : 11.75 s
+20-08-2020 09:07:54: Epoch : 77	Loss : 0.1272	MAE : 5.9285	Val Loss : 0.1217	Val MAE : 6.0109	Time : 11.51 s
+20-08-2020 09:08:06: Epoch : 78	Loss : 0.1269	MAE : 5.9156	Val Loss : 0.1209	Val MAE : 5.7218	Time : 11.77 s
+20-08-2020 09:08:18: Epoch : 79	Loss : 0.1264	MAE : 5.8934	Val Loss : 0.1290	Val MAE : 5.9646	Time : 11.72 s
+20-08-2020 09:08:30: Epoch : 80	Loss : 0.1272	MAE : 5.9207	Val Loss : 0.1233	Val MAE : 5.7240	Time : 11.92 s
+20-08-2020 09:08:42: Epoch : 81	Loss : 0.1270	MAE : 5.9272	Val Loss : 0.1346	Val MAE : 6.6027	Time : 12.10 s
+20-08-2020 09:08:54: Epoch : 82	Loss : 0.1267	MAE : 5.9139	Val Loss : 0.1264	Val MAE : 6.2069	Time : 11.83 s
+20-08-2020 09:09:06: Epoch : 83	Loss : 0.1262	MAE : 5.8754	Val Loss : 0.1343	Val MAE : 6.5902	Time : 12.24 s

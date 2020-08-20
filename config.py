@@ -11,7 +11,7 @@ TRAINING_CONFIG = {
     'model_type' : '1d',
     'pretrained' : False,
     'lr' : 1e-3, 
-    'epochs' : 2,
+    'epochs' : 200,
     'log_path' : 'logging/',
     'save_model_file' : 'trained_model.pt',
     'tensorboard_path' : 'logging/runs/'

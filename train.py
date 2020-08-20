@@ -15,7 +15,8 @@ import logging
 from config import TRAINING_CONFIG
 from model.model_lookup import MODEL_LOOKUP
 import torch.utils.data as data
-
+import sys
+import random
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 logging.basicConfig(filename=f'logging/logs/training_log_{datetime.now().strftime("%Y-%m-%d-%H:%M")}.log', 
@@ -44,15 +45,27 @@ if __name__ == "__main__":
 
     if dataset_name == 'timit_height':
         train_set = Timit_Dataset(DATA_DIR+'/train')
+        
+
         trainloader = data.DataLoader(train_set, batch_size=batch_size, shuffle=True)
         valid_set = Timit_Dataset(DATA_DIR+'/valid', train=False)
+        
+
         valloader = data.DataLoader(valid_set, batch_size=batch_size, shuffle=False)
         test_set = Timit_Dataset(DATA_DIR+'/test', train=False)
+        # plt.subplot(3, 1, 1)
+        # plt.imshow(train_set[random.randint(0,100)][0].squeeze(0).numpy()[:, :])
+        # plt.subplot(3, 1, 2)
+        # plt.imshow(valid_set[random.randint(0,100)][0].squeeze(0).numpy()[:, :])
+        # plt.subplot(3, 1, 3)
+        # plt.imshow(test_set[random.randint(0,100)][0].squeeze(0).numpy()[:, :])
+        # plt.show()
         testloader = data.DataLoader(test_set, batch_size=batch_size, shuffle=False)
         criterion = nn.MSELoss().to(device)
         class_num = 1
         fs = None
         ns = None
+        # sys.exit(0)
     else:    
         if audio_features == 'raw':
             dataset = RawWaveDataset(DATA_DIR)

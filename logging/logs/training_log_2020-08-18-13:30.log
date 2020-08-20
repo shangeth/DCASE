@@ -1,0 +1,6 @@
+18-08-2020 13:31:00: Validation loss reduced from inf to  0.3214867562055588, saving model...
+18-08-2020 13:31:00: Epoch : 01	Loss : 0.5173	MAE : 0.2000	Val Loss : 0.3215	Val MAE : 0.1336	Time : 20.39 s
+18-08-2020 13:31:21: Validation loss reduced from 0.3214867562055588 to  0.2883344441652298, saving model...
+18-08-2020 13:31:21: Epoch : 02	Loss : 0.3354	MAE : 0.1361	Val Loss : 0.2883	Val MAE : 0.1200	Time : 21.50 s
+18-08-2020 13:31:42: Epoch : 03	Loss : 0.2935	MAE : 0.1202	Val Loss : 0.2984	Val MAE : 0.1268	Time : 20.95 s
+18-08-2020 13:32:04: Epoch : 04	Loss : 0.2761	MAE : 0.1135	Val Loss : 0.3188	Val MAE : 0.1348	Time : 21.92 s

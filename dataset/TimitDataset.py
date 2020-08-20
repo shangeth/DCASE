@@ -4,9 +4,10 @@ import torch
 import random
 import numpy as np
 from dataset.data_aug import time_mask, time_warp, freq_mask
+import matplotlib.pyplot as plt
 
 class Timit_Dataset(Dataset):
-    def __init__(self, root_dir, train=True, l=700, label_range=(144.78, 203.2)):
+    def __init__(self, root_dir, train=True, l=200, label_range=(144.78, 203.2)):
         self.root_dir = root_dir
         self.train = train
         self.files = os.listdir(self.root_dir)
@@ -40,8 +41,7 @@ class Timit_Dataset(Dataset):
                 i = np.random.randint(0, t_len-delta)
 
             else: i = 0
-            arr_new[:, t_len:] = 0
-            # arr[:, i:i+delta]
+            arr_new[:, t_len:] = arr[:, i:i+delta]
             return arr_new
 
         else:
@@ -59,22 +59,35 @@ class Timit_Dataset(Dataset):
         file = self.files[idx]
         waveform = np.load(self.root_dir + '/' + file)
         label = float('.'.join(file.split('_')[-1].split('.')[:-1]))
-
+        # plt.subplot(2, 1, 1)
+        # plt.imshow(waveform[:, :300])
+        # print(waveform.shape)
+        if self.train:
+            waveform = waveform + np.random.randn(waveform.shape[0], waveform.shape[1])* np.random.random()
+        # plt.subplot(2, 1, 2)
+        # plt.imshow(waveform[:, :300])
+        # plt.show()
         waveform = self.pad_crop_features(waveform, self.l, self.train)
         waveform = waveform/6.0
+        # plt.subplot(2, 1, 1)
+        # plt.imshow(waveform[:, :300])
+
         waveform = torch.from_numpy(waveform).unsqueeze(0)
         label = self.normalize_label(label)
         
         if self.train:
+            # waveform = time_warp(waveform,W=1)
             # if random.random() >= 0.3:
-            waveform = time_mask(waveform, num_masks=2)
+            waveform = time_mask(waveform, num_masks=4)
                 
             # if random.random() >= 0.3:
-            waveform = freq_mask(waveform, num_masks=2)
+            waveform = freq_mask(waveform, num_masks=3)
 
             # if random.random() >= 0.5:
-            #     waveform = time_warp(waveform)
-
+            
+        # plt.subplot(2, 1, 2)
+        # plt.imshow(waveform.squeeze(0).numpy()[:, :300])
+        # plt.show()
         return waveform, label
 
     def print_stats(self):
@@ -82,3 +95,9 @@ class Timit_Dataset(Dataset):
         print('-'*10)
         print(f'Length of Dataset = {len(self.files)}')
 
+if __name__ == "__main__":
+    dataset = Timit_Dataset('/home/shangeth/Downloads/dump/save_dir/train')
+    img = dataset[0][0].squeeze(0).numpy()
+    print(img.shape)
+    # plt.imshow(img[:, :100])
+    # plt.show()

@@ -372,8 +372,8 @@ def interpolate_bilinear(grid,
         # when taking linear combinations of pixel values from the image.
         # alpha = torch.tensor(queries - floor, dtype=grid_type)
         alpha = queries - floor
-        min_alpha = torch.tensor(0.0, dtype=grid_type)
-        max_alpha = torch.tensor(1.0, dtype=grid_type)
+        min_alpha = torch.tensor(0.0, dtype=grid_type).float()
+        max_alpha = torch.tensor(1.0, dtype=grid_type).float()
         alpha = torch.min(torch.max(min_alpha, alpha), max_alpha)
 
         # Expand alpha to [b, n, 1] so we can use broadcasting

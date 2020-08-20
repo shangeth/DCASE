@@ -12,6 +12,9 @@ from pytorch_lightning.metrics.regression import MAE, MSE, RMSE
 def train(model, trainloader, valloader, criterion, optimizer, epochs, logger, tensorboard_path, log_path, save_model_file):
     writer = SummaryWriter(f'{tensorboard_path}{datetime.now().strftime("%m-%d-%Y_%H:%M:%S")}')
 
+    criterion2 = RMSE().to(device)
+    criterion3 = MAE().to(device)
+
     val_loss_min = np.inf
     scheduler_step = 0
     # loss lists to visualize
@@ -22,6 +25,7 @@ def train(model, trainloader, valloader, criterion, optimizer, epochs, logger, t
     # scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=300)
     # scheduler = torch.optim.lr_scheduler.CyclicLR(optimizer, base_lr=1e-5, max_lr=1e-2, cycle_momentum=False)
     # training loop
+    m, M = (144.78, 203.2)
     for epoch in range(epochs):
         t1 = time.time()
         epoch_loss = 0
@@ -32,7 +36,8 @@ def train(model, trainloader, valloader, criterion, optimizer, epochs, logger, t
             batch_x, batch_y = batch
             batch_x, batch_y = batch_x.float().to(device), batch_y.view(-1).float().to(device)
             y_hat = model(batch_x) # forward pass throough model
-            loss = criterion(y_hat.view(-1), batch_y)
+            # loss = criterion(y_hat.view(-1), batch_y) + criterion2(y_hat.view(-1), batch_y) + 
+            loss = criterion2(y_hat.view(-1), batch_y)
             # + criterion(y_hat2, batch_y2) # compute the loss
             epoch_loss += loss.item()
             optimizer.zero_grad() # zero the previous computed gradients
@@ -45,7 +50,7 @@ def train(model, trainloader, valloader, criterion, optimizer, epochs, logger, t
             
 
             # calculate the accuracy of prediction
-            mae = MAE()(y_hat.view(-1), batch_y).item()
+            mae = MAE()(y_hat.view(-1)* (M-m) + m, batch_y* (M-m) + m).item()
             epoch_accuracy += mae
             
             # print(loss.item(), train_batch_accuracy)
@@ -67,12 +72,13 @@ def train(model, trainloader, valloader, criterion, optimizer, epochs, logger, t
                 batch_x, batch_y = batch
                 batch_x, batch_y = batch_x.float().to(device), batch_y.float().view(-1).to(device)
                 y_hat = model(batch_x)
-                loss = criterion(y_hat.view(-1), batch_y)
+                # loss = criterion(y_hat.view(-1), batch_y) + criterion2(y_hat.view(-1), batch_y) + 
+                loss = criterion2(y_hat.view(-1), batch_y)
                 # + criterion(y_hat2, batch_y2)
                 val_loss += loss.item()
                 
                 # validation accuracy
-                mae = MAE()(y_hat.view(-1), batch_y).item()
+                mae = MAE()(y_hat.view(-1)* (M-m) + m, batch_y* (M-m) + m).item()
                 val_accuracy += mae
                 
             val_loss = val_loss/len(valloader)
@@ -132,7 +138,7 @@ def test(model, loader, logger, log_path, save_model_file):
 
     mse = MSE()(prediction, label)
     mae = MAE()(prediction, label)
-    rmse = RMSE(prediction, label)
+    rmse = RMSE()(prediction, label)
 
     print(f'\n\nTest Dataset :\tMSE : {mse}\tMAE : {mae}\tRMSE: {rmse}')
     logger.info(f'\n\nTest Dataset :\tMSE : {mse}\tMAE : {mae}\tRMSE: {rmse}')
