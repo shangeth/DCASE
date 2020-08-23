@@ -7,7 +7,7 @@ from dataset.data_aug import time_mask, time_warp, freq_mask
 import matplotlib.pyplot as plt
 
 class Timit_Dataset(Dataset):
-    def __init__(self, root_dir, train=True, l=200, label_range=(144.78, 203.2)):
+    def __init__(self, root_dir, train=True, l=700, label_range=(144.78, 203.2)):
         self.root_dir = root_dir
         self.train = train
         self.files = os.listdir(self.root_dir)

@@ -89,7 +89,7 @@ if __name__ == "__main__":
     model = model_class(class_num, fs, ns).to(device)
     # model = torch.nn.DataParallel(model).to(device)
     # print(model)
-    model.print_summary()
+    # model.print_summary()
 
     # test_x = torch.randn(1, 1, fs*ns)
     # y_test = model(test_x.to(device))
@@ -105,7 +105,7 @@ if __name__ == "__main__":
     timit_trainer.train(model, trainloader, valloader, criterion, optimizer, 
                               epochs, logger, tensorboard_path, log_path, save_model_file)
     # timit_trainer.test(model, testloader, logger, log_path, save_model_file)
-
+    # model.load_state_dict(torch.load(log_path+save_model_file))
     timit_trainer.inference(model, trainloader, 'Train', logger, log_path, save_model_file)
     timit_trainer.inference(model, valloader, 'Val', logger, log_path, save_model_file)
     timit_trainer.inference(model, testloader, 'Test', logger, log_path, save_model_file)

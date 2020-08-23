@@ -8,10 +8,10 @@ TRAINING_CONFIG = {
     'augment' : True,
     'val_split_ratio' : 0.1,
     'data_dir' : '/home/shangeth/Downloads/dump/save_dir',
-    'model_type' : '1d',
+    'model_type' : 'cnn-lstm',
     'pretrained' : False,
     'lr' : 1e-3, 
-    'epochs' : 200,
+    'epochs' : 100,
     'log_path' : 'logging/',
     'save_model_file' : 'trained_model.pt',
     'tensorboard_path' : 'logging/runs/'
