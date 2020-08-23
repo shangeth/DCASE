@@ -146,7 +146,7 @@ def test(model, loader, logger, log_path, save_model_file):
 
 def inference(model, loader, label_name, logger, log_path, save_model_file):
     m, M = (144.78, 203.2)
-    model.load_state_dict(torch.load(log_path+save_model_file))
+    # model.load_state_dict(torch.load(log_path+save_model_file))
     true_labels = []
     predictions = []
     model.eval() # evaluation mode

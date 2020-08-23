@@ -18,6 +18,15 @@ import torch.utils.data as data
 import sys
 import random
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+import os
+import yaml
+
+if not os.path.exists('logging/logs'):
+    os.makedirs('logging/logs')
+
+if not os.path.exists('logging/runs'):
+    os.makedirs('logging/runs')
+
 
 logging.basicConfig(filename=f'logging/logs/training_log_{datetime.now().strftime("%Y-%m-%d-%H:%M")}.log', 
                     level=logging.INFO,
@@ -27,6 +36,7 @@ logger = logging.getLogger()
 
 if __name__ == "__main__":
 
+    logger.info(f'\nTraining Config:\n{yaml.dump(TRAINING_CONFIG)}')
     dataset_name = TRAINING_CONFIG['dataset_name']
     task = TRAINING_CONFIG['task']
     DATA_DIR = TRAINING_CONFIG['data_dir']
@@ -88,7 +98,8 @@ if __name__ == "__main__":
     model_class = MODEL_LOOKUP[task][audio_features][model_type]
     model = model_class(class_num, fs, ns).to(device)
     # model = torch.nn.DataParallel(model).to(device)
-    # print(model)
+    print(model)
+    logger.info(f'\nModel Summary:\n{model}\n')
     # model.print_summary()
 
     # test_x = torch.randn(1, 1, fs*ns)
