@@ -42,6 +42,7 @@ if __name__ == "__main__":
     DATA_DIR = TRAINING_CONFIG['data_dir']
     audio_features = TRAINING_CONFIG['audio_features'] 
     audio_sample_rate = TRAINING_CONFIG['audio_sample_rate'] 
+    timit_time_len = TRAINING_CONFIG['timit_time_len']
     batch_size = TRAINING_CONFIG['batch_size']
     augment_bool = TRAINING_CONFIG['augment']
     val_split_ratio = TRAINING_CONFIG['val_split_ratio']
@@ -54,22 +55,11 @@ if __name__ == "__main__":
     tensorboard_path = TRAINING_CONFIG['tensorboard_path']
 
     if dataset_name == 'timit_height':
-        train_set = Timit_Dataset(DATA_DIR+'/train')
-        
-
+        train_set = Timit_Dataset(DATA_DIR+'/train', timit_time_len=timit_time_len)
         trainloader = data.DataLoader(train_set, batch_size=batch_size, shuffle=True)
-        valid_set = Timit_Dataset(DATA_DIR+'/valid', train=False)
-        
-
+        valid_set = Timit_Dataset(DATA_DIR+'/valid', train=False, timit_time_len=timit_time_len)
         valloader = data.DataLoader(valid_set, batch_size=batch_size, shuffle=False)
-        test_set = Timit_Dataset(DATA_DIR+'/test', train=False)
-        # plt.subplot(3, 1, 1)
-        # plt.imshow(train_set[random.randint(0,100)][0].squeeze(0).numpy()[:, :])
-        # plt.subplot(3, 1, 2)
-        # plt.imshow(valid_set[random.randint(0,100)][0].squeeze(0).numpy()[:, :])
-        # plt.subplot(3, 1, 3)
-        # plt.imshow(test_set[random.randint(0,100)][0].squeeze(0).numpy()[:, :])
-        # plt.show()
+        test_set = Timit_Dataset(DATA_DIR+'/test', train=False, timit_time_len=timit_time_len)
         testloader = data.DataLoader(test_set, batch_size=batch_size, shuffle=False)
         criterion = nn.MSELoss().to(device)
         class_num = 1
@@ -96,7 +86,7 @@ if __name__ == "__main__":
     print(f'Dataloader shape = {next(iter(trainloader))[0].shape}')
 
     model_class = MODEL_LOOKUP[task][audio_features][model_type]
-    model = model_class(class_num, fs, ns).to(device)
+    model = model_class(class_num, fs, ns=timit_time_len).to(device)
     # model = torch.nn.DataParallel(model).to(device)
     print(model)
     logger.info(f'\nModel Summary:\n{model}\n')

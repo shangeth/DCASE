@@ -4,6 +4,7 @@ TRAINING_CONFIG = {
     'task' : 'regression',
     'audio_features' : 'mel',
     'audio_sample_rate' : 16000,
+    'timit_time_len', 200,
     'batch_size' : 128, 
     'augment' : True,
     'val_split_ratio' : 0.1,

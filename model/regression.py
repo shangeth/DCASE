@@ -317,10 +317,9 @@ class CNN_LSTM_Regression(nn.Module):
     def __init__(self, class_num=1, fs=None, ns=None):
         super(CNN_LSTM_Regression, self).__init__()
         input_size=26
-        time_len=700 
         
         self.n_layers = 1
-        self.time_len = time_len
+        self.time_len = ns
         self.input_size = 50
         self.n_hidden = 25
 
