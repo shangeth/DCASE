@@ -36,7 +36,7 @@ def train(model, trainloader, valloader, criterion, optimizer, epochs, logger, t
             batch_x, batch_y = batch
             batch_x, batch_y = batch_x.float().to(device), batch_y.view(-1).float().to(device)
             y_hat = model(batch_x) # forward pass throough model
-            # loss = criterion(y_hat.view(-1), batch_y) + criterion2(y_hat.view(-1), batch_y) + 
+            # loss = criterion(y_hat.view(-1), batch_y) + criterion2(y_hat.view(-1), batch_y) + criterion3(y_hat.view(-1), batch_y)
             loss = criterion2(y_hat.view(-1), batch_y)
             # + criterion(y_hat2, batch_y2) # compute the loss
             epoch_loss += loss.item()
@@ -72,7 +72,7 @@ def train(model, trainloader, valloader, criterion, optimizer, epochs, logger, t
                 batch_x, batch_y = batch
                 batch_x, batch_y = batch_x.float().to(device), batch_y.float().view(-1).to(device)
                 y_hat = model(batch_x)
-                # loss = criterion(y_hat.view(-1), batch_y) + criterion2(y_hat.view(-1), batch_y) + 
+                # loss = criterion(y_hat.view(-1), batch_y) + criterion2(y_hat.view(-1), batch_y) + criterion3(y_hat.view(-1), batch_y)
                 loss = criterion2(y_hat.view(-1), batch_y)
                 # + criterion(y_hat2, batch_y2)
                 val_loss += loss.item()
@@ -146,7 +146,7 @@ def test(model, loader, logger, log_path, save_model_file):
 
 def inference(model, loader, label_name, logger, log_path, save_model_file):
     m, M = (144.78, 203.2)
-    # model.load_state_dict(torch.load(log_path+save_model_file))
+    model.load_state_dict(torch.load(log_path+save_model_file))
     true_labels = []
     predictions = []
     model.eval() # evaluation mode

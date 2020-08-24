@@ -1,0 +1,77 @@
+24-08-2020 10:59:00: 
+Training Config:
+audio_features: mel
+audio_sample_rate: 16000
+augment: true
+batch_size: 128
+data_dir: /home/shangeth/Downloads/dump/save_dir
+dataset_name: timit_height
+epochs: 300
+log_path: logging/
+lr: 0.001
+model_type: 2d
+pretrained: false
+save_model_file: trained_model.pt
+task: regression
+tensorboard_path: logging/runs/
+timit_time_len: 307
+val_split_ratio: 0.1
+
+24-08-2020 10:59:03: 
+Model Summary:
+CNN_Regression_2D(
+  (cnn_network): Sequential(
+    (0): Conv2d(1, 16, kernel_size=(5, 10), stride=(1, 2))
+    (1): ReLU()
+    (2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (4): Conv2d(16, 32, kernel_size=(5, 10), stride=(1, 2))
+    (5): ReLU()
+    (6): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (7): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (8): Conv2d(32, 64, kernel_size=(3, 6), stride=(1, 2))
+    (9): ReLU()
+    (10): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  )
+  (ann_network): Sequential(
+    (0): Linear(in_features=384, out_features=1, bias=True)
+  )
+)
+
+24-08-2020 10:59:18: Validation loss reduced from inf to  0.18557778000831604, saving model...
+24-08-2020 10:59:18: Epoch : 01	Loss : 0.2794	MAE : 12.9827	Val Loss : 0.1856	Val MAE : 8.4864	Time : 15.61 s
+24-08-2020 10:59:34: Validation loss reduced from 0.18557778000831604 to  0.15316306054592133, saving model...
+24-08-2020 10:59:34: Epoch : 02	Loss : 0.1701	MAE : 7.9907	Val Loss : 0.1532	Val MAE : 6.8327	Time : 16.11 s
+24-08-2020 10:59:51: Epoch : 03	Loss : 0.1561	MAE : 7.3037	Val Loss : 0.1616	Val MAE : 7.6415	Time : 16.83 s
+24-08-2020 11:00:07: Epoch : 04	Loss : 0.1484	MAE : 6.9476	Val Loss : 0.1613	Val MAE : 7.6783	Time : 16.32 s
+24-08-2020 11:00:24: Validation loss reduced from 0.15316306054592133 to  0.15020682662725449, saving model...
+24-08-2020 11:00:24: Epoch : 05	Loss : 0.1459	MAE : 6.8294	Val Loss : 0.1502	Val MAE : 7.1885	Time : 16.64 s
+24-08-2020 11:00:41: Validation loss reduced from 0.15020682662725449 to  0.14815475791692734, saving model...
+24-08-2020 11:00:41: Epoch : 06	Loss : 0.1418	MAE : 6.6223	Val Loss : 0.1482	Val MAE : 6.9892	Time : 16.55 s
+24-08-2020 11:00:59: Validation loss reduced from 0.14815475791692734 to  0.14499376714229584, saving model...
+24-08-2020 11:00:59: Epoch : 07	Loss : 0.1412	MAE : 6.6001	Val Loss : 0.1450	Val MAE : 6.5477	Time : 18.35 s
+24-08-2020 11:01:21: Validation loss reduced from 0.14499376714229584 to  0.1437837928533554, saving model...
+24-08-2020 11:01:21: Epoch : 08	Loss : 0.1397	MAE : 6.5140	Val Loss : 0.1438	Val MAE : 6.6512	Time : 21.79 s
+24-08-2020 11:01:40: Validation loss reduced from 0.1437837928533554 to  0.1433713436126709, saving model...
+24-08-2020 11:01:40: Epoch : 09	Loss : 0.1374	MAE : 6.4365	Val Loss : 0.1434	Val MAE : 6.8032	Time : 19.03 s
+24-08-2020 11:02:00: Epoch : 10	Loss : 0.1377	MAE : 6.4456	Val Loss : 0.1555	Val MAE : 7.5781	Time : 20.21 s
+24-08-2020 11:02:20: Epoch : 11	Loss : 0.1363	MAE : 6.3849	Val Loss : 0.1587	Val MAE : 7.8508	Time : 19.70 s
+24-08-2020 11:02:37: Epoch : 12	Loss : 0.1371	MAE : 6.4147	Val Loss : 0.1454	Val MAE : 6.7397	Time : 17.46 s
+24-08-2020 11:02:55: Epoch : 13	Loss : 0.1399	MAE : 6.5400	Val Loss : 0.1540	Val MAE : 7.5938	Time : 17.59 s
+24-08-2020 11:03:14: Epoch : 14	Loss : 0.1346	MAE : 6.2889	Val Loss : 0.1529	Val MAE : 7.4558	Time : 19.70 s
+24-08-2020 11:03:32: Epoch : 15	Loss : 0.1348	MAE : 6.3211	Val Loss : 0.1434	Val MAE : 6.9154	Time : 17.72 s
+24-08-2020 11:03:51: Validation loss reduced from 0.1433713436126709 to  0.13939905166625977, saving model...
+24-08-2020 11:03:51: Epoch : 16	Loss : 0.1351	MAE : 6.3351	Val Loss : 0.1394	Val MAE : 6.4594	Time : 18.60 s
+24-08-2020 11:04:10: Epoch : 17	Loss : 0.1315	MAE : 6.1399	Val Loss : 0.1398	Val MAE : 6.6008	Time : 19.57 s
+24-08-2020 11:04:31: Validation loss reduced from 0.13939905166625977 to  0.1332271322607994, saving model...
+24-08-2020 11:04:31: Epoch : 18	Loss : 0.1322	MAE : 6.1575	Val Loss : 0.1332	Val MAE : 6.1997	Time : 20.19 s
+24-08-2020 11:04:49: Epoch : 19	Loss : 0.1313	MAE : 6.1436	Val Loss : 0.1440	Val MAE : 6.8564	Time : 18.87 s
+24-08-2020 11:05:09: Epoch : 20	Loss : 0.1325	MAE : 6.1957	Val Loss : 0.1556	Val MAE : 7.6552	Time : 19.80 s
+24-08-2020 11:05:30: Epoch : 21	Loss : 0.1306	MAE : 6.0978	Val Loss : 0.1406	Val MAE : 6.4998	Time : 20.32 s
+24-08-2020 11:05:47: Epoch : 22	Loss : 0.1300	MAE : 6.0762	Val Loss : 0.1350	Val MAE : 6.3192	Time : 17.89 s
+24-08-2020 11:06:05: Epoch : 23	Loss : 0.1300	MAE : 6.0858	Val Loss : 0.1467	Val MAE : 7.0992	Time : 17.13 s
+24-08-2020 11:06:23: Epoch : 24	Loss : 0.1310	MAE : 6.1334	Val Loss : 0.1562	Val MAE : 7.7754	Time : 18.10 s
+24-08-2020 11:06:40: Epoch : 25	Loss : 0.1303	MAE : 6.0946	Val Loss : 0.1611	Val MAE : 8.0002	Time : 17.56 s
+24-08-2020 11:06:58: Validation loss reduced from 0.1332271322607994 to  0.13299091160297394, saving model...
+24-08-2020 11:06:58: Epoch : 26	Loss : 0.1301	MAE : 6.0651	Val Loss : 0.1330	Val MAE : 6.0822	Time : 18.07 s
+24-08-2020 11:07:17: Epoch : 27	Loss : 0.1307	MAE : 6.1049	Val Loss : 0.1376	Val MAE : 6.6116	Time : 18.25 s

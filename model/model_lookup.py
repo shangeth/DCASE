@@ -9,7 +9,9 @@ MODEL_LOOKUP = {
             '1d' : CNN_Regression_1D,
             '2d' : CNN_Regression_2D,
             'lstm' : LSTM_Regression,
-            'cnn-lstm' : CNN_LSTM_Regression
+            'cnn-lstm' : CNN_LSTM_Regression,
+            'lstm-attn' : LSTM_Attn_Regression,
+            'cnn-lstm-attn' : CNN_LSTM_Attn_Regression
         }
     },
     'classification' : {
