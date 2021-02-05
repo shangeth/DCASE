@@ -169,3 +169,56 @@ def inference(model, loader, label_name, logger, log_path, save_model_file):
     print(f'\n{label_name} Dataset :\tMSE : {mse}\tMAE : {mae}\tRMSE: {rmse}')
     logger.info(f'\n{label_name} Dataset :\tMSE : {mse}\tMAE : {mae}\tRMSE: {rmse}')
 
+def attention_inference(model, dataset):
+    m, M = (144.78, 203.2)
+    model.eval() 
+    with torch.no_grad():
+        batch_x, true_height, true_gender, true_age, _ = dataset[random.randint(0,100)]
+        height_pred, y_hat2, age_pred, attn_weights = model(batch_x.unsqueeze(0).to(device))
+
+        _, gender_pred = torch.max(y_hat2,1)
+        gender_pred = gender_pred.item()
+        height_pred = height_pred.cpu().numpy().reshape(-1)[0]* (M-m) + m
+        age_pred = age_pred.cpu().numpy().reshape(-1)[0]*100
+
+        true_gender = true_gender
+        true_age = true_age*100
+        true_height = true_height* (M-m) + m
+
+        wav = batch_x.numpy().reshape(-1)
+        # weights = np.pad(attn_weights.cpu().numpy().reshape(-1), 1)
+        weights = attn_weights.cpu().numpy().reshape(-1)
+        weights = np.repeat(weights, 161)
+        # weights = np.resize(weights, wav.shape)
+        x = np.arange(0, len(weights))
+        y = weights
+
+        # print(x.shape, y.shape, weights.shape)
+
+
+        # print(attn_weights.shape)
+        # print(true_gender, gender_pred)
+        # print(true_age, age_pred)
+        # print(true_height, height_pred)
+        print(wav.min(), wav.max())
+        
+        plt.subplot(3, 1, 1)
+        # plt.axhline(y=0, color='black')
+        plt.axvline(x=0, color='black')
+        # plt.yticks([])
+        plt.plot(wav)
+        # plt.plot(weights*5)
+
+        plt.subplot(3, 1, 2)
+        # plt.axhline(y=0, color='black')
+        plt.axvline(x=0, color='black')
+        # plt.yticks([])
+        plt.plot(weights)
+        
+        plt.subplot(3, 1, 3)
+        # plt.yticks([])
+        extent = [x[0]-(x[1]-x[0])/2., x[-1]+(x[1]-x[0])/2.,wav.min(),wav.max()]
+        plt.imshow(y[np.newaxis,:], cmap="plasma", aspect="auto", extent=extent)
+        plt.tight_layout()
+        
+        plt.show()
